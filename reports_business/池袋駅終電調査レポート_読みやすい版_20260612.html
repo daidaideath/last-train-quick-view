@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>池袋駅 終電調査レポート</title>
+  <style>
+    :root {
+      --bg:#eef2f6;
+      --bg-deep:#101827;
+      --paper:#ffffff;
+      --paper-soft:#f8fafc;
+      --text:#172033;
+      --muted:#647084;
+      --line:#d7dee8;
+      --line-strong:#b9c5d4;
+      --accent:#0f766e;
+      --accent-deep:#115e59;
+      --accent-soft:#e6f4f1;
+      --gold:#b7791f;
+      --gold-soft:#fff6df;
+      --blue:#2563eb;
+      --blue-soft:#eaf1ff;
+      --shadow:0 22px 54px rgba(16,24,39,.15);
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0;
+      color:var(--text);
+      background:
+        linear-gradient(180deg,#111827 0,#111827 180px,#eef2f6 180px,#eef2f6 100%);
+      font-family:"Segoe UI","Yu Gothic UI","Yu Gothic",Meiryo,sans-serif;
+      line-height:1.76;
+    }
+    header {
+      color:#dfe7f1;
+      background:transparent;
+    }
+    .bar {
+      width:min(1040px,calc(100% - 32px));
+      margin:0 auto;
+      padding:18px 0;
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      align-items:center;
+      font-size:14px;
+    }
+    .bar a {
+      color:#d7fffb;
+      text-decoration:none;
+      font-weight:800;
+      border-bottom:1px solid rgba(215,255,251,.5);
+    }
+    .bar span { color:#aeb9c8; }
+    main {
+      width:min(1040px,calc(100% - 32px));
+      margin:28px auto 64px;
+      padding:42px 48px 54px;
+      background:var(--paper);
+      border:1px solid rgba(255,255,255,.72);
+      border-radius:16px;
+      box-shadow:var(--shadow);
+    }
+    h1 {
+      margin:0 0 30px;
+      padding-bottom:28px;
+      border-bottom:1px solid var(--line);
+      font-size:clamp(30px,4.4vw,46px);
+      line-height:1.22;
+      letter-spacing:0;
+      color:#101827;
+    }
+    h2 {
+      margin:38px 0 16px;
+      padding-top:20px;
+      border-top:1px solid var(--line);
+      font-size:25px;
+      letter-spacing:0;
+      color:#132033;
+    }
+    h2::before {
+      content:"";
+      display:inline-block;
+      width:6px;
+      height:22px;
+      margin-right:10px;
+      border-radius:99px;
+      background:var(--accent);
+      vertical-align:-4px;
+    }
+    h3 {
+      margin:26px 0 10px;
+      font-size:18px;
+      color:#1c2a3f;
+      letter-spacing:0;
+    }
+    h4 {
+      margin:18px 0 8px;
+      font-size:16px;
+      color:#26344c;
+      letter-spacing:0;
+    }
+    p { margin:10px 0; }
+    ul { margin:10px 0 20px; padding-left:1.35em; }
+    li { margin:6px 0; }
+    .focus-panel {
+      margin:20px 0 28px;
+      padding:20px 22px;
+      border:1px solid #bfd8d4;
+      border-left:6px solid var(--accent);
+      border-radius:14px;
+      background:
+        linear-gradient(135deg,rgba(230,244,241,.95),rgba(255,255,255,.95));
+      box-shadow:0 14px 28px rgba(15,118,110,.10);
+    }
+    .focus-panel h3 {
+      margin-top:0;
+      color:#0f4f49;
+    }
+    .focus-panel ul { margin-bottom:0; }
+    .table-wrap {
+      overflow:auto;
+      margin:16px 0 26px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:#fff;
+      box-shadow:0 8px 20px rgba(16,24,39,.06);
+    }
+    table {
+      width:100%;
+      border-collapse:collapse;
+      min-width:640px;
+      background:#fff;
+      font-size:14px;
+    }
+    th,td {
+      padding:11px 13px;
+      border-bottom:1px solid var(--line);
+      text-align:left;
+      vertical-align:top;
+    }
+    th {
+      color:#0e3136;
+      background:#e8f2f3;
+      font-weight:800;
+      border-bottom:1px solid var(--line-strong);
+    }
+    tr:last-child td { border-bottom:0; }
+    tbody tr.is-weekday td { background:var(--blue-soft); }
+    tbody tr.is-holiday td { background:var(--gold-soft); }
+    tbody tr.is-weekday.is-holiday td {
+      background:linear-gradient(90deg,var(--blue-soft),var(--gold-soft));
+    }
+    .day-badge {
+      display:inline-flex;
+      align-items:center;
+      min-height:20px;
+      padding:1px 8px;
+      border-radius:999px;
+      font-size:.86em;
+      font-weight:800;
+      line-height:1.45;
+      white-space:nowrap;
+    }
+    .day-weekday {
+      color:#174ea6;
+      background:#dbeafe;
+      border:1px solid #bfdbfe;
+    }
+    .day-holiday {
+      color:#8a4b0f;
+      background:#fef3c7;
+      border:1px solid #fde68a;
+    }
+    a {
+      color:var(--accent-deep);
+      overflow-wrap:anywhere;
+      font-weight:700;
+    }
+    @media (max-width:720px) {
+      .bar { align-items:flex-start; flex-direction:column; }
+      main { padding:26px 18px 36px; border-radius:12px; }
+      table { font-size:13px; }
+      h2 { font-size:22px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="bar">
+      <a href="../index.html">駅別クイックビューへ戻る</a>
+      <span>終電調査レポート</span>
+    </div>
+  </header>
+  <main>
+<h1>池袋駅 終電調査レポート</h1>
+<h2>駅・路線の概要</h2>
+<div class="table-wrap"><table><thead><tr><th>路線・方向</th><th>主な行き先</th><th>次の駅</th></tr></thead><tbody><tr><td>山手線・外回り</td><td>上野、東京、品川方面</td><td>大塚</td></tr><tr><td>山手線・内回り</td><td>新宿、渋谷方面</td><td>目白</td></tr><tr><td>埼京線・北行</td><td>赤羽、大宮、川越方面</td><td>板橋</td></tr><tr><td>埼京線・南行</td><td>新宿、大崎、りんかい線方面</td><td>新宿</td></tr><tr><td>湘南新宿ライン・北行</td><td>大宮、高崎・宇都宮方面</td><td>赤羽</td></tr><tr><td>湘南新宿ライン・南行</td><td>横浜、大船、小田原・逗子方面</td><td>新宿</td></tr><tr><td>東武東上線</td><td>成増、志木、川越、小川町方面</td><td>北池袋</td></tr><tr><td>西武池袋線</td><td>練馬、所沢、飯能方面</td><td>椎名町</td></tr><tr><td>丸ノ内線</td><td>後楽園、東京、新宿、荻窪方面</td><td>新大塚</td></tr><tr><td>有楽町線・新木場方面</td><td>有楽町、豊洲、新木場方面</td><td>東池袋</td></tr><tr><td>有楽町線・和光市方面</td><td>小竹向原、和光市方面</td><td>要町</td></tr><tr><td>副都心線・渋谷方面</td><td>新宿三丁目、渋谷、横浜方面</td><td>雑司が谷</td></tr><tr><td>副都心線・和光市方面</td><td>小竹向原、和光市方面</td><td>要町</td></tr></tbody></table></div>
+<h2>深夜帯の時系列</h2>
+<div class="table-wrap"><table><thead><tr><th>時刻</th><th>状況</th></tr></thead><tbody><tr><td>0:07～0:10ごろ</td><td>西武池袋線の椎名町発池袋行最終が到着</td></tr><tr><td>0:11～0:22</td><td>地下鉄、西武、丸ノ内線、JR北行の最終が集中</td></tr><tr><td>0:21～0:31</td><td>山手線両方向の最終。乗り換え失敗が増える時間帯</td></tr><tr><td>0:27～0:30ごろ</td><td>丸ノ内線新大塚発、東武東上線北池袋発の池袋行終着が到着</td></tr><tr><td>0:44～0:54ごろ</td><td>新宿側からの山手線池袋止まりが到着</td></tr><tr><td>1:02～1:03ごろ</td><td>上野側からの最後の山手線池袋止まりが到着見込み</td></tr><tr><td>1:03～1:15</td><td>大規模駅内の移動後、各出口へ出る人流</td></tr></tbody></table></div>
+<h2>池袋駅を出る最終列車</h2>
+<h3>JR東日本</h3>
+<h4><span class="day-badge day-weekday">平日</span></h4>
+<div class="table-wrap"><table><thead><tr><th>路線・方向</th><th>池袋駅発</th><th>行き先</th></tr></thead><tbody><tr><td>埼京線・北行</td><td>0:22</td><td>赤羽</td></tr><tr><td>埼京線・南行</td><td>23:58</td><td>新宿</td></tr><tr><td>湘南新宿ライン・北行</td><td>23:40</td><td>籠原</td></tr><tr><td>湘南新宿ライン・南行</td><td>22:52</td><td>国府津</td></tr><tr><td>山手線・外回り（上野・東京方面）</td><td>0:21</td><td>品川</td></tr><tr><td>山手線・内回り（新宿・渋谷方面）</td><td>0:31</td><td>大崎</td></tr></tbody></table></div>
+<h4>埼京線北行・行き先別の実質最終</h4>
+<p>最終列車だけを見ると北行は0:22赤羽行である。ただし、赤羽より先へ行ける列車はその前に終わる。</p>
+<div class="table-wrap"><table><thead><tr><th>行ける範囲</th><th>池袋駅発</th><th>行き先</th><th>見るポイント</th></tr></thead><tbody><tr><td>川越まで</td><td>23:52</td><td>川越</td><td>大宮より先、川越線方面へ行ける最後</td></tr><tr><td>大宮まで</td><td>0:05</td><td>大宮</td><td>赤羽より先へ行ける最後</td></tr><tr><td>赤羽まで</td><td>0:22</td><td>赤羽</td><td>埼京線北行としての最終</td></tr></tbody></table></div>
+<h4>土曜・<span class="day-badge day-holiday">休日</span></h4>
+<div class="table-wrap"><table><thead><tr><th>路線・方向</th><th>池袋駅発</th><th>行き先</th></tr></thead><tbody><tr><td>埼京線・北行</td><td>0:22</td><td>赤羽</td></tr><tr><td>埼京線・南行</td><td>23:58</td><td>新宿</td></tr><tr><td>湘南新宿ライン・北行</td><td>23:40</td><td>籠原</td></tr><tr><td>湘南新宿ライン・南行</td><td>22:52</td><td>国府津</td></tr><tr><td>山手線・外回り（上野・東京方面）</td><td>0:21</td><td>品川</td></tr><tr><td>山手線・内回り（新宿・渋谷方面）</td><td>0:31</td><td>大崎</td></tr></tbody></table></div>
+<h4>埼京線北行・行き先別の実質最終</h4>
+<div class="table-wrap"><table><thead><tr><th>行ける範囲</th><th>池袋駅発</th><th>行き先</th><th>見るポイント</th></tr></thead><tbody><tr><td>川越まで</td><td>23:52</td><td>川越</td><td>大宮より先、川越線方面へ行ける最後</td></tr><tr><td>大宮まで</td><td>0:05</td><td>大宮</td><td>赤羽より先へ行ける最後</td></tr><tr><td>赤羽まで</td><td>0:22</td><td>赤羽</td><td>埼京線北行としての最終</td></tr></tbody></table></div>
+<h3>東京メトロ</h3>
+<h4><span class="day-badge day-weekday">平日</span></h4>
+<div class="table-wrap"><table><thead><tr><th>路線・方向</th><th>池袋駅発</th><th>行き先</th></tr></thead><tbody><tr><td>丸ノ内線・荻窪方面</td><td>0:20</td><td>茗荷谷</td></tr><tr><td>有楽町線・新木場方面</td><td>23:59</td><td>新木場</td></tr><tr><td>有楽町線・和光市方面</td><td>0:13</td><td>和光市方面</td></tr><tr><td>副都心線・渋谷方面</td><td>0:14</td><td>渋谷</td></tr><tr><td>副都心線・和光市方面</td><td>0:11</td><td>和光市・西武線方面</td></tr></tbody></table></div>
+<h4>土曜・<span class="day-badge day-holiday">休日</span></h4>
+<div class="table-wrap"><table><thead><tr><th>路線・方向</th><th>池袋駅発</th><th>行き先</th></tr></thead><tbody><tr><td>丸ノ内線・荻窪方面</td><td>0:20</td><td>茗荷谷</td></tr><tr><td>有楽町線・新木場方面</td><td>23:59</td><td>新木場</td></tr><tr><td>有楽町線・和光市方面</td><td>0:13</td><td>和光市方面</td></tr><tr><td>副都心線・渋谷方面</td><td>0:14</td><td>渋谷</td></tr><tr><td>副都心線・和光市方面</td><td>0:11</td><td>和光市・西武線方面</td></tr></tbody></table></div>
+<p>丸ノ内線は池袋始発で、最終は茗荷谷行である。有楽町線・副都心線の北行は和光市から東武東上線、小竹向原から西武線へ直通する列車を含むため、列車ごとに行き先を確認する必要がある。</p>
+<h3>西武池袋線</h3>
+<div class="table-wrap"><table><thead><tr><th>曜日</th><th>最終出発</th><th>行き先</th><th>種別</th></tr></thead><tbody><tr class="is-weekday"><td><span class="day-badge day-weekday">平日</span></td><td>0:18</td><td>保谷</td><td>各駅停車</td></tr><tr class="is-holiday"><td>土曜・<span class="day-badge day-holiday">休日</span></td><td>0:18</td><td>保谷</td><td>各駅停車</td></tr></tbody></table></div>
+<p>小手指方面の最終は0:14発準急小手指行である。路線全体の最終0:18発は保谷までの運転となる。</p>
+<h3>東武東上線</h3>
+<p>東武東上線は池袋発の最終だけでなく、北池袋側から池袋に着く終着列車も見る。北池袋発池袋方面の時刻表では、24時台に池袋行があり、最後は24:28発である。北池袋から池袋までは短距離のため、東武側改札は0:30前後まで観察対象に入れる。</p>
+<h2>池袋駅に着く終着列車</h2>
+<p>池袋は、山手線の池袋止まりに加えて、東武東上線、西武池袋線、丸ノ内線が池袋を終端とする。終電調査では「池袋駅を出る最終列車」だけでなく、「池袋駅に着いて終わる列車」も別に見る。</p>
+<h3><span class="day-badge day-weekday">平日</span></h3>
+<div class="table-wrap"><table><thead><tr><th>系統</th><th>手前駅・確認駅</th><th>発車時刻</th><th>池袋到着見込み</th><th>見るポイント</th></tr></thead><tbody><tr><td>山手線・上野、大塚側から</td><td>上野</td><td>0:20、0:27、0:36、0:46</td><td>0:36、0:43、0:52、1:02ごろ</td><td>最後の大きな池袋止まり。全体最終の中心</td></tr><tr><td>山手線・新宿、目白側から</td><td>新宿</td><td>0:20、0:29、0:36、0:44</td><td>0:29、0:38、0:45、0:53ごろ</td><td>西側からの池袋止まり</td></tr><tr><td>東武東上線</td><td>北池袋</td><td>23:04、23:12、23:21、23:28、23:36、23:43、23:56、24:15、24:28</td><td>北池袋発の約2分後</td><td>東武側改札は0:30前後まで見る</td></tr><tr><td>西武池袋線</td><td>椎名町</td><td>23:05、23:14、23:23、23:32、23:43、23:55、0:07</td><td>椎名町発の約3分後</td><td>西武側は0:10前後が目安</td></tr><tr><td>丸ノ内線</td><td>新大塚</td><td>23:03、23:11、23:19、23:27、0:03、0:11、0:19、0:27</td><td>新大塚発の約2分後</td><td>丸ノ内線側は0:30前後が目安</td></tr></tbody></table></div>
+<h3>土曜・<span class="day-badge day-holiday">休日</span></h3>
+<div class="table-wrap"><table><thead><tr><th>系統</th><th>手前駅・確認駅</th><th>発車時刻</th><th>池袋到着見込み</th><th>見るポイント</th></tr></thead><tbody><tr><td>山手線・上野、大塚側から</td><td>上野</td><td>0:21、0:27、0:36、0:47</td><td>0:37、0:43、0:52、1:03ごろ</td><td>最後の大きな池袋止まり。全体最終の中心</td></tr><tr><td>山手線・新宿、目白側から</td><td>新宿</td><td>0:20、0:29、0:36、0:44</td><td>0:29、0:38、0:45、0:53ごろ</td><td>西側からの池袋止まり</td></tr><tr class="is-holiday"><td>東武東上線</td><td>北池袋</td><td>23時台後半～24:28</td><td>北池袋発の約2分後</td><td>連携時刻表上は24:28池袋行を確認。<span class="day-badge day-holiday">土<span class="day-badge day-holiday">休日</span></span>は当日画面でも再確認</td></tr><tr><td>西武池袋線</td><td>椎名町</td><td>23:04、23:14、23:24、23:33、23:49、23:54、0:07</td><td>椎名町発の約3分後</td><td>西武側は0:10前後が目安</td></tr><tr><td>丸ノ内線</td><td>新大塚</td><td>23:00、23:06、23:13、23:19、23:26、23:32、23:39、23:47、23:56、0:03、0:11、0:19、0:27</td><td>新大塚発の約2分後</td><td>丸ノ内線側は0:30前後が目安</td></tr></tbody></table></div>
+<p>有楽町線・副都心線は池袋を通る路線で、通常は和光市方面、新木場方面、渋谷方面へ抜ける列車が中心となる。池袋止まりとして見る対象は、山手線、東武東上線、西武池袋線、丸ノ内線を優先する。</p>
+<h2>見るべきポイント</h2>
+<ul><li>調査推奨時間：0:00～1:15ごろ</li><li>特に注目する時間：0:15～1:10ごろ</li><li>山手線池袋止まりの最終到着見込み：<span class="day-badge day-weekday">平日</span>1:02ごろ、土曜・<span class="day-badge day-holiday">休日</span>1:03ごろ</li><li>埼京線北行の行き先別最終：23:52川越行、0:05大宮行、0:22赤羽行を分けて見る</li></ul>
+<p>西武池袋線は0:10前後、東武東上線と丸ノ内線は0:30前後、山手線池袋止まりは1:02～1:03ごろまで到着が続く。埼京線北行は0:22赤羽行が路線としての最終だが、赤羽より先へ行ける列車は0:05大宮行が最後で、川越線方面は23:52川越行が最後である。駅が大きく改札から出口まで時間がかかるため、1:10～1:15ごろまで観察するのが適当と考えられる。</p>
+<h3>現地で確認したいこと</h3>
+<p>池袋駅で終電を逃した利用客と、池袋止まりの列車から降りる利用客が駅外へ出てくる時間帯を把握するため、JR、東武東上線、西武池袋線、丸ノ内線、有楽町線、副都心線の深夜ダイヤを整理する。埼京線北行は、赤羽まで、大宮まで、川越までの実質最終を分けて確認する。</p>
+<h2>現地チェックリスト</h2>
+<ul><li>JR中央改札、東武、西武、メトロ各改札での人流の違い</li><li>東口、西口、北口、南口への分散</li><li>0:11～0:31の乗り換え客の動き</li><li>埼京線北行の23:52川越行、0:05大宮行、0:22赤羽行を逃した利用客の違い</li><li>山手線池袋止まりから各出口へ出るまでの所要時間</li><li>1:02～1:03ごろの最後の山手線到着後の降車人数</li><li>0:30前後の東武東上線、丸ノ内線の終着到着後の人流</li><li>0:10前後の西武池袋線終着到着後の人流</li><li>タクシー、深夜バス、繁華街、宿泊施設方面への移動</li><li>東武東上線の当日最終発車時刻と上り最終到着時刻</li><li>列車の遅延、運休、臨時列車の有無</li></ul>
+<h2>注意事項</h2>
+<h3>基礎情報</h3>
+<ul><li>調査日：2026年6月12日</li><li>対象駅：JR東日本・東武鉄道・西武鉄道・東京メトロ 池袋駅</li><li>時刻表：各鉄道事業者の公式サイトで確認</li></ul>
+<ul><li>本資料は2026年6月12日に閲覧した公式時刻表を基にしている。</li><li>JR東日本の表示は「JR時刻表」2026年6月号に基づく。</li><li>東京メトロは公式印刷用時刻表PDF、西武池袋線は公式時刻表で確認した。</li><li>東武東上線は東武公式駅ページから案内されるNAVITIME連携時刻表で確認した。<span class="day-badge day-holiday">土<span class="day-badge day-holiday">休日</span></span>は当日の駅発車案内でも再確認する。</li><li>池袋到着時刻は手前駅の公式発車時刻から算出した見込みである。</li><li>臨時ダイヤ、年末年始、工事、事故、天候などにより変更される場合がある。</li></ul>
+<h2>出典</h2>
+<ul><li>JR東日本「池袋駅 時刻表」</li></ul>
+<p><a href="https://timetables.jreast.co.jp/timetable/list0108.html" target="_blank" rel="noreferrer">https://timetables.jreast.co.jp/timetable/list0108.html</a></p>
+<ul><li>JR東日本「上野駅 時刻表」</li></ul>
+<p><a href="https://timetables.jreast.co.jp/timetable/list0204.html" target="_blank" rel="noreferrer">https://timetables.jreast.co.jp/timetable/list0204.html</a></p>
+<ul><li>JR東日本「新宿駅 時刻表」</li></ul>
+<p><a href="https://timetables.jreast.co.jp/timetable/list0866.html" target="_blank" rel="noreferrer">https://timetables.jreast.co.jp/timetable/list0866.html</a></p>
+<ul><li>東京メトロ「池袋駅 時刻表」</li></ul>
+<p><a href="https://www.tokyometro.jp/station/ikebukuro/timetable/index.html" target="_blank" rel="noreferrer">https://www.tokyometro.jp/station/ikebukuro/timetable/index.html</a></p>
+<ul><li>東京メトロ「丸ノ内線 新大塚駅 印刷用時刻表」</li></ul>
+<p><a href="https://www.tokyometro.jp/station/timetable/pdf/202603/M24.pdf" target="_blank" rel="noreferrer">https://www.tokyometro.jp/station/timetable/pdf/202603/M24.pdf</a></p>
+<ul><li>西武鉄道「池袋駅」</li></ul>
+<p><a href="https://www.seiburailway.jp/railway/station/ikebukuro/" target="_blank" rel="noreferrer">https://www.seiburailway.jp/railway/station/ikebukuro/</a></p>
+<ul><li>西武鉄道「椎名町駅 池袋方面 時刻表」</li></ul>
+<p><a href="https://seibu.ekitan.com/norikae/timetable/station/235-1/d1?dw=0" target="_blank" rel="noreferrer">https://seibu.ekitan.com/norikae/timetable/station/235-1/d1?dw=0</a></p>
+<ul><li>西武鉄道「椎名町駅 池袋方面 時刻表（<span class="day-badge day-holiday">土<span class="day-badge day-holiday">休日</span></span>）」</li></ul>
+<p><a href="https://seibu.ekitan.com/norikae/timetable/station/235-1/d1?dw=1" target="_blank" rel="noreferrer">https://seibu.ekitan.com/norikae/timetable/station/235-1/d1?dw=1</a></p>
+<ul><li>東武鉄道「池袋駅」</li></ul>
+<p><a href="https://www.tobu.co.jp/railway/guide/station/info/7105/" target="_blank" rel="noreferrer">https://www.tobu.co.jp/railway/guide/station/info/7105/</a></p>
+<ul><li>NAVITIME「北池袋駅 東武東上線 池袋方面 時刻表」</li></ul>
+<p><a href="https://www.navitime.co.jp/diagram/timetable?node=00008370&amp;lineId=00000808&amp;updown=0" target="_blank" rel="noreferrer">https://www.navitime.co.jp/diagram/timetable?node=00008370&amp;lineId=00000808&amp;updown=0</a></p>
+  </main>
+</body>
+</html>

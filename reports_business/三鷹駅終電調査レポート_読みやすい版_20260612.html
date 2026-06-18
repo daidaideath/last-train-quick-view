@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>三鷹駅 終電調査レポート</title>
+  <style>
+    :root {
+      --bg:#eef2f6;
+      --bg-deep:#101827;
+      --paper:#ffffff;
+      --paper-soft:#f8fafc;
+      --text:#172033;
+      --muted:#647084;
+      --line:#d7dee8;
+      --line-strong:#b9c5d4;
+      --accent:#0f766e;
+      --accent-deep:#115e59;
+      --accent-soft:#e6f4f1;
+      --gold:#b7791f;
+      --gold-soft:#fff6df;
+      --blue:#2563eb;
+      --blue-soft:#eaf1ff;
+      --shadow:0 22px 54px rgba(16,24,39,.15);
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0;
+      color:var(--text);
+      background:
+        linear-gradient(180deg,#111827 0,#111827 180px,#eef2f6 180px,#eef2f6 100%);
+      font-family:"Segoe UI","Yu Gothic UI","Yu Gothic",Meiryo,sans-serif;
+      line-height:1.76;
+    }
+    header {
+      color:#dfe7f1;
+      background:transparent;
+    }
+    .bar {
+      width:min(1040px,calc(100% - 32px));
+      margin:0 auto;
+      padding:18px 0;
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      align-items:center;
+      font-size:14px;
+    }
+    .bar a {
+      color:#d7fffb;
+      text-decoration:none;
+      font-weight:800;
+      border-bottom:1px solid rgba(215,255,251,.5);
+    }
+    .bar span { color:#aeb9c8; }
+    main {
+      width:min(1040px,calc(100% - 32px));
+      margin:28px auto 64px;
+      padding:42px 48px 54px;
+      background:var(--paper);
+      border:1px solid rgba(255,255,255,.72);
+      border-radius:16px;
+      box-shadow:var(--shadow);
+    }
+    h1 {
+      margin:0 0 30px;
+      padding-bottom:28px;
+      border-bottom:1px solid var(--line);
+      font-size:clamp(30px,4.4vw,46px);
+      line-height:1.22;
+      letter-spacing:0;
+      color:#101827;
+    }
+    h2 {
+      margin:38px 0 16px;
+      padding-top:20px;
+      border-top:1px solid var(--line);
+      font-size:25px;
+      letter-spacing:0;
+      color:#132033;
+    }
+    h2::before {
+      content:"";
+      display:inline-block;
+      width:6px;
+      height:22px;
+      margin-right:10px;
+      border-radius:99px;
+      background:var(--accent);
+      vertical-align:-4px;
+    }
+    h3 {
+      margin:26px 0 10px;
+      font-size:18px;
+      color:#1c2a3f;
+      letter-spacing:0;
+    }
+    h4 {
+      margin:18px 0 8px;
+      font-size:16px;
+      color:#26344c;
+      letter-spacing:0;
+    }
+    p { margin:10px 0; }
+    ul { margin:10px 0 20px; padding-left:1.35em; }
+    li { margin:6px 0; }
+    .focus-panel {
+      margin:20px 0 28px;
+      padding:20px 22px;
+      border:1px solid #bfd8d4;
+      border-left:6px solid var(--accent);
+      border-radius:14px;
+      background:
+        linear-gradient(135deg,rgba(230,244,241,.95),rgba(255,255,255,.95));
+      box-shadow:0 14px 28px rgba(15,118,110,.10);
+    }
+    .focus-panel h3 {
+      margin-top:0;
+      color:#0f4f49;
+    }
+    .focus-panel ul { margin-bottom:0; }
+    .table-wrap {
+      overflow:auto;
+      margin:16px 0 26px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:#fff;
+      box-shadow:0 8px 20px rgba(16,24,39,.06);
+    }
+    table {
+      width:100%;
+      border-collapse:collapse;
+      min-width:640px;
+      background:#fff;
+      font-size:14px;
+    }
+    th,td {
+      padding:11px 13px;
+      border-bottom:1px solid var(--line);
+      text-align:left;
+      vertical-align:top;
+    }
+    th {
+      color:#0e3136;
+      background:#e8f2f3;
+      font-weight:800;
+      border-bottom:1px solid var(--line-strong);
+    }
+    tr:last-child td { border-bottom:0; }
+    tbody tr.is-weekday td { background:var(--blue-soft); }
+    tbody tr.is-holiday td { background:var(--gold-soft); }
+    tbody tr.is-weekday.is-holiday td {
+      background:linear-gradient(90deg,var(--blue-soft),var(--gold-soft));
+    }
+    .day-badge {
+      display:inline-flex;
+      align-items:center;
+      min-height:20px;
+      padding:1px 8px;
+      border-radius:999px;
+      font-size:.86em;
+      font-weight:800;
+      line-height:1.45;
+      white-space:nowrap;
+    }
+    .day-weekday {
+      color:#174ea6;
+      background:#dbeafe;
+      border:1px solid #bfdbfe;
+    }
+    .day-holiday {
+      color:#8a4b0f;
+      background:#fef3c7;
+      border:1px solid #fde68a;
+    }
+    a {
+      color:var(--accent-deep);
+      overflow-wrap:anywhere;
+      font-weight:700;
+    }
+    @media (max-width:720px) {
+      .bar { align-items:flex-start; flex-direction:column; }
+      main { padding:26px 18px 36px; border-radius:12px; }
+      table { font-size:13px; }
+      h2 { font-size:22px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="bar">
+      <a href="../index.html">駅別クイックビューへ戻る</a>
+      <span>終電調査レポート</span>
+    </div>
+  </header>
+  <main>
+<h1>三鷹駅 終電調査レポート</h1>
+<h2>駅・路線の概要</h2>
+<div class="table-wrap"><table><thead><tr><th>路線・方向</th><th>主な行き先</th><th>次の駅</th></tr></thead><tbody><tr><td>中央線快速・上り</td><td>中野、新宿、東京方面</td><td>吉祥寺</td></tr><tr><td>中央線快速・下り</td><td>国分寺、立川、高尾方面</td><td>武蔵境</td></tr><tr><td>中央・総武線各駅停車・東行</td><td>吉祥寺、中野、新宿、千葉方面</td><td>吉祥寺</td></tr><tr><td>東西線直通・東行</td><td>中野、大手町、西船橋方面</td><td>吉祥寺</td></tr></tbody></table></div>
+<p>中央・総武線各駅停車は三鷹が西端の始発・終着駅であり、武蔵境方面へは中央線快速を利用する。</p>
+<h2>深夜帯の時系列</h2>
+<div class="table-wrap"><table><thead><tr><th>時刻</th><th>状況</th></tr></thead><tbody><tr><td>0:25～0:40</td><td>三鷹止まり到着と三鷹発各線最終が重なる</td></tr><tr><td>0:40前後</td><td>中央線快速下り最終後。立川方面へ行けない利用客に注目</td></tr><tr><td>0:51ごろ</td><td>三鷹止まり到着</td></tr><tr><td>0:57ごろ</td><td>最後の三鷹止まり到着</td></tr><tr><td>0:57～1:05</td><td>改札通過後、北口・南口へ出る人流</td></tr></tbody></table></div>
+<h2>三鷹駅を出る最終列車</h2>
+<h3><span class="day-badge day-weekday">平日</span></h3>
+<div class="table-wrap"><table><thead><tr><th>路線・方向</th><th>三鷹駅発</th><th>行き先</th></tr></thead><tbody><tr><td>中央線快速・上り（新宿・東京方面）</td><td>23:55</td><td>東京</td></tr><tr><td>中央線快速・下り（立川方面）</td><td>0:40</td><td>武蔵小金井</td></tr><tr><td>中央・総武線各駅停車・東行</td><td>0:34</td><td>中野</td></tr></tbody></table></div>
+<h3>土曜・<span class="day-badge day-holiday">休日</span></h3>
+<div class="table-wrap"><table><thead><tr><th>路線・方向</th><th>三鷹駅発</th><th>行き先</th></tr></thead><tbody><tr><td>中央線快速・上り（新宿・東京方面）</td><td>23:57</td><td>東京</td></tr><tr><td>中央線快速・下り（立川方面）</td><td>0:39</td><td>武蔵小金井</td></tr><tr><td>中央・総武線各駅停車・東行</td><td>0:34</td><td>中野</td></tr></tbody></table></div>
+<p>東京メトロ東西線直通列車も中央・総武線の線路を使用するが、深夜の最終列車は中野行であり、東西線内へは直通しない。</p>
+<h2>三鷹駅に着く終着列車</h2>
+<p>吉祥寺駅の中央・総武線各駅停車西行時刻表から、深夜の三鷹行を抽出した。吉祥寺から三鷹までは通常約2分として到着時刻を見込んだ。</p>
+<h3><span class="day-badge day-weekday">平日</span></h3>
+<div class="table-wrap"><table><thead><tr><th>吉祥寺発</th><th>三鷹到着見込み</th></tr></thead><tbody><tr><td>0:12</td><td>0:14ごろ</td></tr><tr><td>0:19</td><td>0:21ごろ</td></tr><tr><td>0:26</td><td>0:28ごろ</td></tr><tr><td>0:34</td><td>0:36ごろ</td></tr><tr><td>0:49</td><td>0:51ごろ</td></tr><tr><td>0:55</td><td>0:57ごろ</td></tr></tbody></table></div>
+<h3>土曜・<span class="day-badge day-holiday">休日</span></h3>
+<div class="table-wrap"><table><thead><tr><th>吉祥寺発</th><th>三鷹到着見込み</th></tr></thead><tbody><tr><td>0:06</td><td>0:08ごろ</td></tr><tr><td>0:16</td><td>0:18ごろ</td></tr><tr><td>0:26</td><td>0:28ごろ</td></tr><tr><td>0:38</td><td>0:40ごろ</td></tr><tr><td>0:49</td><td>0:51ごろ</td></tr><tr><td>0:55</td><td>0:57ごろ</td></tr></tbody></table></div>
+<p>中央線快速では、確認した深夜時間帯に吉祥寺発の三鷹行はない。まとまった降車は中央・総武線各駅停車の三鷹行が中心となる。</p>
+<h2>見るべきポイント</h2>
+<ul><li>調査推奨時間：0:10～1:05ごろ</li><li>特に注目する時間：0:25～1:00ごろ</li><li>最後の三鷹止まり到着見込み：0:57ごろ</li></ul>
+<p>三鷹発の最終は中央・総武線0:34中野行、中央線快速下りが<span class="day-badge day-weekday">平日</span>0:40・<span class="day-badge day-holiday">土<span class="day-badge day-holiday">休日</span></span>0:39武蔵小金井行である。一方、吉祥寺から三鷹行が0:55まで出発するため、三鷹止まりの最後の到着は0:57ごろとなる。</p>
+<h3>現地で確認したいこと</h3>
+<p>三鷹駅で終電を逃した利用客と、三鷹止まりの列車から降りる利用客が駅外へ出てくる時間帯を把握するため、中央線快速、中央・総武線各駅停車の最終列車と深夜の三鷹行を整理する。</p>
+<h2>現地チェックリスト</h2>
+<ul><li>北口・南口での人流の違い</li><li>0:36、0:51、0:57ごろの三鷹止まり降車人数</li><li>中央線快速下り最終後に立川方面を目指す利用客の行動</li><li>バス乗り場、タクシー乗り場、自転車置き場への移動</li><li>吉祥寺方面から来た三鷹止まり利用客が駅外へ出るまでの時間</li><li><span class="day-badge day-weekday">平日</span>と<span class="day-badge day-holiday">土<span class="day-badge day-holiday">休日</span></span>の0時台到着間隔の違い</li><li>列車の遅延、運休、臨時列車の有無</li></ul>
+<h2>注意事項</h2>
+<h3>基礎情報</h3>
+<ul><li>調査日：2026年6月12日</li><li>対象駅：JR東日本 三鷹駅</li><li>時刻表：JR東日本公式サイトで確認</li></ul>
+<ul><li>本資料は2026年6月12日に閲覧したJR東日本公式時刻表を基にしている。</li><li>表示は「JR時刻表」2026年6月号に基づく。</li><li>三鷹到着時刻は吉祥寺駅の公式発車時刻から算出した見込みである。</li><li>臨時ダイヤ、年末年始、工事、事故、天候などにより変更される場合がある。</li><li>調査当日に公式サイト、駅掲示、発車案内で再確認する。</li></ul>
+<h2>出典</h2>
+<ul><li>JR東日本「三鷹駅 時刻表」</li></ul>
+<p><a href="https://timetables.jreast.co.jp/timetable/list1463.html" target="_blank" rel="noreferrer">https://timetables.jreast.co.jp/timetable/list1463.html</a></p>
+<ul><li>JR東日本「吉祥寺駅 時刻表」</li></ul>
+<p><a href="https://timetables.jreast.co.jp/timetable/list0596.html" target="_blank" rel="noreferrer">https://timetables.jreast.co.jp/timetable/list0596.html</a></p>
+  </main>
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>新橋駅 終電調査レポート</title>
+  <style>
+    :root {
+      --bg:#eef2f6;
+      --bg-deep:#101827;
+      --paper:#ffffff;
+      --paper-soft:#f8fafc;
+      --text:#172033;
+      --muted:#647084;
+      --line:#d7dee8;
+      --line-strong:#b9c5d4;
+      --accent:#0f766e;
+      --accent-deep:#115e59;
+      --accent-soft:#e6f4f1;
+      --gold:#b7791f;
+      --gold-soft:#fff6df;
+      --blue:#2563eb;
+      --blue-soft:#eaf1ff;
+      --shadow:0 22px 54px rgba(16,24,39,.15);
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0;
+      color:var(--text);
+      background:
+        linear-gradient(180deg,#111827 0,#111827 180px,#eef2f6 180px,#eef2f6 100%);
+      font-family:"Segoe UI","Yu Gothic UI","Yu Gothic",Meiryo,sans-serif;
+      line-height:1.76;
+    }
+    header {
+      color:#dfe7f1;
+      background:transparent;
+    }
+    .bar {
+      width:min(1040px,calc(100% - 32px));
+      margin:0 auto;
+      padding:18px 0;
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      align-items:center;
+      font-size:14px;
+    }
+    .bar a {
+      color:#d7fffb;
+      text-decoration:none;
+      font-weight:800;
+      border-bottom:1px solid rgba(215,255,251,.5);
+    }
+    .bar span { color:#aeb9c8; }
+    main {
+      width:min(1040px,calc(100% - 32px));
+      margin:28px auto 64px;
+      padding:42px 48px 54px;
+      background:var(--paper);
+      border:1px solid rgba(255,255,255,.72);
+      border-radius:16px;
+      box-shadow:var(--shadow);
+    }
+    h1 {
+      margin:0 0 30px;
+      padding-bottom:28px;
+      border-bottom:1px solid var(--line);
+      font-size:clamp(30px,4.4vw,46px);
+      line-height:1.22;
+      letter-spacing:0;
+      color:#101827;
+    }
+    h2 {
+      margin:38px 0 16px;
+      padding-top:20px;
+      border-top:1px solid var(--line);
+      font-size:25px;
+      letter-spacing:0;
+      color:#132033;
+    }
+    h2::before {
+      content:"";
+      display:inline-block;
+      width:6px;
+      height:22px;
+      margin-right:10px;
+      border-radius:99px;
+      background:var(--accent);
+      vertical-align:-4px;
+    }
+    h3 {
+      margin:26px 0 10px;
+      font-size:18px;
+      color:#1c2a3f;
+      letter-spacing:0;
+    }
+    h4 {
+      margin:18px 0 8px;
+      font-size:16px;
+      color:#26344c;
+      letter-spacing:0;
+    }
+    p { margin:10px 0; }
+    ul { margin:10px 0 20px; padding-left:1.35em; }
+    li { margin:6px 0; }
+    .focus-panel {
+      margin:20px 0 28px;
+      padding:20px 22px;
+      border:1px solid #bfd8d4;
+      border-left:6px solid var(--accent);
+      border-radius:14px;
+      background:
+        linear-gradient(135deg,rgba(230,244,241,.95),rgba(255,255,255,.95));
+      box-shadow:0 14px 28px rgba(15,118,110,.10);
+    }
+    .focus-panel h3 {
+      margin-top:0;
+      color:#0f4f49;
+    }
+    .focus-panel ul { margin-bottom:0; }
+    .table-wrap {
+      overflow:auto;
+      margin:16px 0 26px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:#fff;
+      box-shadow:0 8px 20px rgba(16,24,39,.06);
+    }
+    table {
+      width:100%;
+      border-collapse:collapse;
+      min-width:640px;
+      background:#fff;
+      font-size:14px;
+    }
+    th,td {
+      padding:11px 13px;
+      border-bottom:1px solid var(--line);
+      text-align:left;
+      vertical-align:top;
+    }
+    th {
+      color:#0e3136;
+      background:#e8f2f3;
+      font-weight:800;
+      border-bottom:1px solid var(--line-strong);
+    }
+    tr:last-child td { border-bottom:0; }
+    tbody tr.is-weekday td { background:var(--blue-soft); }
+    tbody tr.is-holiday td { background:var(--gold-soft); }
+    tbody tr.is-weekday.is-holiday td {
+      background:linear-gradient(90deg,var(--blue-soft),var(--gold-soft));
+    }
+    .day-badge {
+      display:inline-flex;
+      align-items:center;
+      min-height:20px;
+      padding:1px 8px;
+      border-radius:999px;
+      font-size:.86em;
+      font-weight:800;
+      line-height:1.45;
+      white-space:nowrap;
+    }
+    .day-weekday {
+      color:#174ea6;
+      background:#dbeafe;
+      border:1px solid #bfdbfe;
+    }
+    .day-holiday {
+      color:#8a4b0f;
+      background:#fef3c7;
+      border:1px solid #fde68a;
+    }
+    a {
+      color:var(--accent-deep);
+      overflow-wrap:anywhere;
+      font-weight:700;
+    }
+    @media (max-width:720px) {
+      .bar { align-items:flex-start; flex-direction:column; }
+      main { padding:26px 18px 36px; border-radius:12px; }
+      table { font-size:13px; }
+      h2 { font-size:22px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="bar">
+      <a href="../index.html">駅別クイックビューへ戻る</a>
+      <span>終電調査レポート</span>
+    </div>
+  </header>
+  <main>
+<h1>新橋駅 終電調査レポート</h1>
+<h2>駅・路線の概要</h2>
+<div class="table-wrap"><table><thead><tr><th>路線・方向</th><th>主な行き先</th><th>次の駅</th></tr></thead><tbody><tr><td>東海道線・下り</td><td>品川、横浜、小田原方面</td><td>品川</td></tr><tr><td>上野東京ライン・北行</td><td>東京、上野方面</td><td>東京</td></tr><tr><td>山手線・外回り</td><td>品川、渋谷方面</td><td>浜松町</td></tr><tr><td>山手線・内回り</td><td>東京、上野方面</td><td>有楽町</td></tr><tr><td>横須賀線・下り</td><td>品川、横浜方面</td><td>品川</td></tr><tr><td>横須賀・総武快速線・上り</td><td>東京、千葉方面</td><td>東京</td></tr><tr><td>京浜東北線・南行</td><td>品川、蒲田方面</td><td>浜松町</td></tr><tr><td>京浜東北線・北行</td><td>東京、上野方面</td><td>有楽町</td></tr><tr><td>銀座線・渋谷方面</td><td>虎ノ門、渋谷方面</td><td>虎ノ門</td></tr><tr><td>銀座線・浅草方面</td><td>銀座、上野、浅草方面</td><td>銀座</td></tr><tr><td>都営浅草線・南行</td><td>大門、泉岳寺方面</td><td>大門</td></tr><tr><td>都営浅草線・北行</td><td>東銀座、浅草、押上方面</td><td>東銀座</td></tr><tr><td>ゆりかもめ</td><td>台場、有明、豊洲方面</td><td>汐留</td></tr></tbody></table></div>
+<h2>深夜帯の時系列</h2>
+<div class="table-wrap"><table><thead><tr><th>時刻</th><th>状況</th></tr></thead><tbody><tr><td>23:50～0:00</td><td>ゆりかもめ豊洲行、JR郊外方面の最終が終了</td></tr><tr><td>0:09～0:23</td><td>浅草線、銀座線、ゆりかもめの最終が集中</td></tr><tr><td>0:34～0:39</td><td>山手線内回り、京浜東北線の最終</td></tr><tr><td>0:50前後</td><td>山手線外回り最終。JR駅外への最後の流出に注目</td></tr><tr><td>0:50～1:00</td><td>最終列車後の経路検索、タクシー・繁華街方面への移動</td></tr></tbody></table></div>
+<h2>新橋駅を出る最終列車</h2>
+<h3>JR東日本</h3>
+<h4><span class="day-badge day-weekday">平日</span></h4>
+<div class="table-wrap"><table><thead><tr><th>路線・方向</th><th>新橋駅発</th><th>行き先</th></tr></thead><tbody><tr><td>東海道線・下り</td><td>23:57</td><td>平塚</td></tr><tr><td>上野東京ライン・北行</td><td>23:43</td><td>東京</td></tr><tr><td>常磐線直通・北行</td><td>23:01</td><td>土浦</td></tr><tr><td>山手線・外回り（品川方面）</td><td>0:50</td><td>品川</td></tr><tr><td>山手線・内回り（東京・上野方面）</td><td>0:34</td><td>池袋</td></tr><tr><td>横須賀線・下り</td><td>23:53</td><td>大船</td></tr><tr><td>横須賀・総武快速線・上り</td><td>23:57</td><td>千葉</td></tr><tr><td>京浜東北線・南行</td><td>0:36</td><td>蒲田</td></tr><tr><td>京浜東北線・北行</td><td>0:39</td><td>上野</td></tr></tbody></table></div>
+<h4>京浜東北線・行き先別の実質最終</h4>
+<p>最終列車だけを見ると南行は0:36蒲田行、北行は0:39上野行である。ただし、蒲田・上野より先へ行ける列車はその前に終わる。</p>
+<div class="table-wrap"><table><thead><tr><th>方向</th><th>行ける範囲</th><th>新橋駅発</th><th>行き先</th><th>見るポイント</th></tr></thead><tbody><tr><td>南行</td><td>大船まで</td><td>23:44</td><td>大船</td><td>根岸線方面まで届く最終より早い</td></tr><tr><td>南行</td><td>横浜・桜木町方面まで</td><td>0:01</td><td>桜木町</td><td>蒲田より先へ行ける最後</td></tr><tr><td>南行</td><td>磯子方面まで</td><td>23:55</td><td>磯子</td><td>根岸線方面の実質最終</td></tr><tr><td>北行</td><td>大宮まで</td><td>23:56</td><td>大宮</td><td>上野より先の埼玉方面へ行ける最後の大宮行</td></tr><tr><td>北行</td><td>南浦和まで</td><td>0:18</td><td>南浦和</td><td>上野より先へ行ける最後</td></tr><tr><td>北行</td><td>上野まで</td><td>0:39</td><td>上野</td><td>路線としての最終</td></tr></tbody></table></div>
+<h4>土曜・<span class="day-badge day-holiday">休日</span></h4>
+<div class="table-wrap"><table><thead><tr><th>路線・方向</th><th>新橋駅発</th><th>行き先</th></tr></thead><tbody><tr><td>東海道線・下り</td><td>23:57</td><td>平塚</td></tr><tr><td>上野東京ライン・北行</td><td>23:43</td><td>東京</td></tr><tr><td>常磐線直通・北行</td><td>23:01</td><td>土浦</td></tr><tr><td>山手線・外回り（品川方面）</td><td>0:50</td><td>品川</td></tr><tr><td>山手線・内回り（東京・上野方面）</td><td>0:34</td><td>池袋</td></tr><tr><td>横須賀線・下り</td><td>23:53</td><td>大船</td></tr><tr><td>横須賀・総武快速線・上り</td><td>23:57</td><td>千葉</td></tr><tr><td>京浜東北線・南行</td><td>0:36</td><td>蒲田</td></tr><tr><td>京浜東北線・北行</td><td>0:39</td><td>上野</td></tr></tbody></table></div>
+<h4>京浜東北線・行き先別の実質最終</h4>
+<div class="table-wrap"><table><thead><tr><th>方向</th><th>行ける範囲</th><th>新橋駅発</th><th>行き先</th><th>見るポイント</th></tr></thead><tbody><tr><td>南行</td><td>大船まで</td><td>23:44</td><td>大船</td><td>根岸線方面まで届く最終より早い</td></tr><tr><td>南行</td><td>横浜・桜木町方面まで</td><td>0:01</td><td>桜木町</td><td>蒲田より先へ行ける最後</td></tr><tr><td>南行</td><td>磯子方面まで</td><td>23:55</td><td>磯子</td><td>根岸線方面の実質最終</td></tr><tr><td>北行</td><td>大宮まで</td><td>23:56</td><td>大宮</td><td>上野より先の埼玉方面へ行ける最後の大宮行</td></tr><tr><td>北行</td><td>南浦和まで</td><td>0:18</td><td>南浦和</td><td>上野より先へ行ける最後</td></tr><tr><td>北行</td><td>上野まで</td><td>0:39</td><td>上野</td><td>路線としての最終</td></tr></tbody></table></div>
+<h3>地下鉄・ゆりかもめ</h3>
+<div class="table-wrap"><table><thead><tr><th>路線・方向</th><th>最終出発</th><th>行き先</th></tr></thead><tbody><tr><td>東京メトロ銀座線・渋谷方面</td><td>0:14</td><td>渋谷</td></tr><tr><td>東京メトロ銀座線・浅草方面</td><td>0:16</td><td>上野</td></tr><tr><td>都営浅草線・西馬込、泉岳寺方面</td><td>0:23</td><td>泉岳寺</td></tr><tr><td>都営浅草線・押上方面</td><td>0:09</td><td>京成高砂</td></tr><tr><td>ゆりかもめ・豊洲方面</td><td>0:20</td><td>有明</td></tr></tbody></table></div>
+<p>都営浅草線は<span class="day-badge day-weekday">平日</span>・<span class="day-badge day-holiday">土<span class="day-badge day-holiday">休日</span></span>とも同時刻である。ゆりかもめの豊洲行最終は23:50で、その後の0:20発は有明行となる。</p>
+<h2>新橋駅に着く終着列車</h2>
+<p>通常の深夜ダイヤでは、新橋を終点とする定期列車は確認できなかった。新橋では「駅止まり列車からのまとまった降車」よりも、各方面の最終列車を逃した利用客、乗り換えに失敗した利用客、山手線品川行など途中駅止まりの列車に乗れなかった利用客が主な観察対象になる。</p>
+<h2>見るべきポイント</h2>
+<ul><li>調査推奨時間：23:55～1:00ごろ</li><li>特に注目する時間：0:10～0:55ごろ</li><li>新橋止まりの定期列車：深夜帯には確認できず</li><li>京浜東北線の行き先別最終：南行は0:01桜木町行、北行は0:18南浦和行が、蒲田・上野より先へ行ける最後</li></ul>
+<p>0:09～0:23に地下鉄・ゆりかもめの最終が集中し、その後0:34～0:50にJRの最終が続く。京浜東北線は南行0:36蒲田行、北行0:39上野行が路線としての最終だが、蒲田・上野より先へ行ける列車はその前に終わる。最後は山手線外回り0:50発の品川行であるため、改札通過時間を含めて1:00ごろまでの観察が適当と考えられる。</p>
+<h3>現地で確認したいこと</h3>
+<p>新橋駅で終電を逃した利用客が駅外へ出てくる時間帯を把握するため、JR各線、銀座線、都営浅草線、ゆりかもめの最終列車を整理する。京浜東北線は「路線としての最終」と「蒲田・上野より先へ行ける実質最終」を分けて見る。</p>
+<h2>現地チェックリスト</h2>
+<ul><li>JRの銀座口・日比谷口・烏森口・汐留口での人流の違い</li><li>地下鉄、ゆりかもめからJRへの最終乗り換え状況</li><li>0:14～0:23と0:34～0:50の二つのピーク</li><li>京浜東北線の0:01桜木町行、0:18南浦和行、0:36蒲田行、0:39上野行を逃した利用客の違い</li><li>タクシー乗り場、銀座・汐留・新橋繁華街方面への移動</li><li>駅前で電話、経路検索、宿泊先検索をする人</li><li>列車の遅延、運休、臨時列車の有無</li></ul>
+<h2>注意事項</h2>
+<h3>基礎情報</h3>
+<ul><li>調査日：2026年6月12日</li><li>対象駅：JR東日本・東京メトロ・東京都交通局・ゆりかもめ 新橋駅</li><li>時刻表：各鉄道事業者の公式サイトで確認</li></ul>
+<ul><li>本資料は2026年6月12日に閲覧した公式時刻表を基にしている。</li><li>JR東日本の表示は「JR時刻表」2026年6月号に基づく。</li><li>目的地別の実質的な最終列車は、表の路線最終より早い場合がある。</li><li>臨時ダイヤ、年末年始、工事、事故、天候などにより変更される場合がある。</li><li>調査当日に各社公式サイト、駅掲示、発車案内で再確認する。</li></ul>
+<h2>出典</h2>
+<ul><li>JR東日本「新橋駅 時刻表」</li></ul>
+<p><a href="https://timetables.jreast.co.jp/timetable/list0877.html" target="_blank" rel="noreferrer">https://timetables.jreast.co.jp/timetable/list0877.html</a></p>
+<ul><li>東京メトロ「新橋駅 時刻表」</li></ul>
+<p><a href="https://www.tokyometro.jp/station/shimbashi/timetable/index.html" target="_blank" rel="noreferrer">https://www.tokyometro.jp/station/shimbashi/timetable/index.html</a></p>
+<ul><li>東京都交通局「新橋駅 時刻表」</li></ul>
+<p><a href="https://www.kotsu.metro.tokyo.jp/subway/timetable/asakusa/A10SD.html" target="_blank" rel="noreferrer">https://www.kotsu.metro.tokyo.jp/subway/timetable/asakusa/A10SD.html</a></p>
+<ul><li>ゆりかもめ「新橋駅 時刻表」</li></ul>
+<p><a href="https://www.yurikamome.co.jp/station-timetable/u-01.html" target="_blank" rel="noreferrer">https://www.yurikamome.co.jp/station-timetable/u-01.html</a></p>
+  </main>
+</body>
+</html>

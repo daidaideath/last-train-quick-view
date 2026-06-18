@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>秋葉原駅 終電調査レポート</title>
+  <style>
+    :root {
+      --bg:#eef2f6;
+      --bg-deep:#101827;
+      --paper:#ffffff;
+      --paper-soft:#f8fafc;
+      --text:#172033;
+      --muted:#647084;
+      --line:#d7dee8;
+      --line-strong:#b9c5d4;
+      --accent:#0f766e;
+      --accent-deep:#115e59;
+      --accent-soft:#e6f4f1;
+      --gold:#b7791f;
+      --gold-soft:#fff6df;
+      --blue:#2563eb;
+      --blue-soft:#eaf1ff;
+      --shadow:0 22px 54px rgba(16,24,39,.15);
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0;
+      color:var(--text);
+      background:
+        linear-gradient(180deg,#111827 0,#111827 180px,#eef2f6 180px,#eef2f6 100%);
+      font-family:"Segoe UI","Yu Gothic UI","Yu Gothic",Meiryo,sans-serif;
+      line-height:1.76;
+    }
+    header {
+      color:#dfe7f1;
+      background:transparent;
+    }
+    .bar {
+      width:min(1040px,calc(100% - 32px));
+      margin:0 auto;
+      padding:18px 0;
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      align-items:center;
+      font-size:14px;
+    }
+    .bar a {
+      color:#d7fffb;
+      text-decoration:none;
+      font-weight:800;
+      border-bottom:1px solid rgba(215,255,251,.5);
+    }
+    .bar span { color:#aeb9c8; }
+    main {
+      width:min(1040px,calc(100% - 32px));
+      margin:28px auto 64px;
+      padding:42px 48px 54px;
+      background:var(--paper);
+      border:1px solid rgba(255,255,255,.72);
+      border-radius:16px;
+      box-shadow:var(--shadow);
+    }
+    h1 {
+      margin:0 0 30px;
+      padding-bottom:28px;
+      border-bottom:1px solid var(--line);
+      font-size:clamp(30px,4.4vw,46px);
+      line-height:1.22;
+      letter-spacing:0;
+      color:#101827;
+    }
+    h2 {
+      margin:38px 0 16px;
+      padding-top:20px;
+      border-top:1px solid var(--line);
+      font-size:25px;
+      letter-spacing:0;
+      color:#132033;
+    }
+    h2::before {
+      content:"";
+      display:inline-block;
+      width:6px;
+      height:22px;
+      margin-right:10px;
+      border-radius:99px;
+      background:var(--accent);
+      vertical-align:-4px;
+    }
+    h3 {
+      margin:26px 0 10px;
+      font-size:18px;
+      color:#1c2a3f;
+      letter-spacing:0;
+    }
+    h4 {
+      margin:18px 0 8px;
+      font-size:16px;
+      color:#26344c;
+      letter-spacing:0;
+    }
+    p { margin:10px 0; }
+    ul { margin:10px 0 20px; padding-left:1.35em; }
+    li { margin:6px 0; }
+    .focus-panel {
+      margin:20px 0 28px;
+      padding:20px 22px;
+      border:1px solid #bfd8d4;
+      border-left:6px solid var(--accent);
+      border-radius:14px;
+      background:
+        linear-gradient(135deg,rgba(230,244,241,.95),rgba(255,255,255,.95));
+      box-shadow:0 14px 28px rgba(15,118,110,.10);
+    }
+    .focus-panel h3 {
+      margin-top:0;
+      color:#0f4f49;
+    }
+    .focus-panel ul { margin-bottom:0; }
+    .table-wrap {
+      overflow:auto;
+      margin:16px 0 26px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:#fff;
+      box-shadow:0 8px 20px rgba(16,24,39,.06);
+    }
+    table {
+      width:100%;
+      border-collapse:collapse;
+      min-width:640px;
+      background:#fff;
+      font-size:14px;
+    }
+    th,td {
+      padding:11px 13px;
+      border-bottom:1px solid var(--line);
+      text-align:left;
+      vertical-align:top;
+    }
+    th {
+      color:#0e3136;
+      background:#e8f2f3;
+      font-weight:800;
+      border-bottom:1px solid var(--line-strong);
+    }
+    tr:last-child td { border-bottom:0; }
+    tbody tr.is-weekday td { background:var(--blue-soft); }
+    tbody tr.is-holiday td { background:var(--gold-soft); }
+    tbody tr.is-weekday.is-holiday td {
+      background:linear-gradient(90deg,var(--blue-soft),var(--gold-soft));
+    }
+    .day-badge {
+      display:inline-flex;
+      align-items:center;
+      min-height:20px;
+      padding:1px 8px;
+      border-radius:999px;
+      font-size:.86em;
+      font-weight:800;
+      line-height:1.45;
+      white-space:nowrap;
+    }
+    .day-weekday {
+      color:#174ea6;
+      background:#dbeafe;
+      border:1px solid #bfdbfe;
+    }
+    .day-holiday {
+      color:#8a4b0f;
+      background:#fef3c7;
+      border:1px solid #fde68a;
+    }
+    a {
+      color:var(--accent-deep);
+      overflow-wrap:anywhere;
+      font-weight:700;
+    }
+    @media (max-width:720px) {
+      .bar { align-items:flex-start; flex-direction:column; }
+      main { padding:26px 18px 36px; border-radius:12px; }
+      table { font-size:13px; }
+      h2 { font-size:22px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="bar">
+      <a href="../index.html">駅別クイックビューへ戻る</a>
+      <span>終電調査レポート</span>
+    </div>
+  </header>
+  <main>
+<h1>秋葉原駅 終電調査レポート</h1>
+<h2>駅・路線の概要</h2>
+<p>秋葉原駅には、JR山手線、京浜東北線、総武線各駅停車、東京メトロ日比谷線、つくばエクスプレスが乗り入れる。深夜帯はJRが比較的遅くまで残る一方、日比谷線・TXとの乗り換え可否が観察対象になる。</p>
+<div class="table-wrap"><table><thead><tr><th>路線・方向</th><th>主な行き先</th><th>次の駅</th></tr></thead><tbody><tr><td>山手線・内回り</td><td>東京、品川方面</td><td>神田</td></tr><tr><td>山手線・外回り</td><td>上野、池袋方面</td><td>御徒町</td></tr><tr><td>京浜東北線・南行</td><td>東京、品川方面</td><td>神田</td></tr><tr><td>京浜東北線・北行</td><td>上野、赤羽方面</td><td>御徒町</td></tr><tr><td>総武線各駅停車・西行</td><td>御茶ノ水、新宿方面</td><td>御茶ノ水</td></tr><tr><td>総武線各駅停車・東行</td><td>浅草橋、錦糸町、千葉方面</td><td>浅草橋</td></tr><tr><td>日比谷線</td><td>上野、北千住方面／銀座、中目黒方面</td><td>仲御徒町／小伝馬町</td></tr><tr><td>つくばエクスプレス</td><td>北千住、守谷、つくば方面</td><td>新御徒町</td></tr></tbody></table></div>
+<h2>深夜帯の時系列</h2>
+<div class="table-wrap"><table><thead><tr><th>時刻</th><th>状況</th></tr></thead><tbody><tr><td>23:50～0:04</td><td>日比谷線中目黒方面の最終を確認</td></tr><tr><td>0:04～0:19</td><td>日比谷線北千住方面、JR各線の終盤を確認</td></tr><tr><td>0:20～0:43</td><td>山手線、京浜東北線の最後の区間行きを確認</td></tr><tr><td>0:43～0:55</td><td>昭和通り口、電気街口、中央改札への流出</td></tr></tbody></table></div>
+<h2>秋葉原駅を出る最終列車</h2>
+<h3><span class="day-badge day-weekday">平日</span>の主な最終列車</h3>
+<div class="table-wrap"><table><thead><tr><th>路線・方向</th><th>駅発</th><th>行き先</th><th>種別・確認内容</th></tr></thead><tbody><tr><td>山手線・内回り</td><td>0:34</td><td>中野方面表示あり</td><td>普通</td></tr><tr><td>山手線・外回り</td><td>0:28</td><td>池袋・上野方面</td><td>普通</td></tr><tr><td>京浜東北線・南行</td><td>0:42</td><td>品川</td><td>普通</td></tr><tr><td>京浜東北線・北行</td><td>0:43</td><td>池袋方面表示あり</td><td>普通</td></tr><tr><td>日比谷線・中目黒方面</td><td>0:04</td><td>中目黒</td><td>普通</td></tr><tr><td>日比谷線・北千住方面</td><td>0:19</td><td>竹ノ塚方面</td><td>普通</td></tr></tbody></table></div>
+<h3>行き先別の実質最終</h3>
+<p>最終列車だけを見ると、途中駅止まりを最終として扱ってしまう場合がある。調査では、目的地へ届く最後の列車と、路線として最後に残る区間列車を分けて見る。</p>
+<div class="table-wrap"><table><thead><tr><th>方向</th><th>行ける範囲</th><th>駅発</th><th>見るポイント</th></tr></thead><tbody><tr><td>日比谷線南行</td><td>中目黒まで</td><td>0:04</td><td>日比谷線南側へ行ける最後</td></tr><tr><td>日比谷線北行</td><td>北千住・東武方面</td><td>0:19</td><td>北側の終盤</td></tr><tr><td>京浜東北線南行</td><td>品川まで</td><td>0:42</td><td>南側へ戻る最後</td></tr><tr><td>京浜東北線北行</td><td>北側方面</td><td>0:43</td><td>JRの最後の山場</td></tr></tbody></table></div>
+<h2>秋葉原駅に着く終着列車</h2>
+<p>秋葉原では駅止まり列車からのまとまった降車より、日比谷線・TX・総武線からJRへ乗り換えられるか、またはJRから地下鉄・TXへ乗り換えられないかが主な観察対象になる。</p>
+<h2>見るべきポイント</h2>
+<ul><li>調査推奨時間：23:50～0:55ごろ</li><li>特に注目する時間：0:00～0:45ごろ</li><li>日比谷線は0:04中目黒方面、0:19北千住方面が終盤の確認点。</li><li>JR山手線・京浜東北線は0:40台前半まで残る。</li></ul>
+<h3>現地で確認したいこと</h3>
+<p>秋葉原駅で終電を逃した利用客と、途中駅止まり・駅止まり列車から降りる利用客が駅外へ出てくる時間帯を把握するため、路線ごとの最終列車と目的地別の実質最終を整理する。</p>
+<h2>現地チェックリスト</h2>
+<ul><li>昭和通り口、電気街口、中央改札の人流差</li><li>日比谷線からJRへの最終乗り換え</li><li>TXからJR・日比谷線への乗り換え</li><li>御茶ノ水、浅草橋方面へ徒歩移動する人</li><li>駅前で経路検索、電話、宿泊先検索をする人</li><li>列車の遅延、運休、臨時列車の有無</li></ul>
+<h2>注意事項</h2>
+<h3>基礎情報</h3>
+<ul><li>調査日：2026年6月18日</li><li>対象駅：JR東日本・東京メトロ・つくばエクスプレス 秋葉原駅</li><li>時刻表：各鉄道事業者の公式サイト、または公式サイトから案内される時刻表で確認</li></ul>
+<ul><li>JR東日本と東京メトロの公式時刻表を基に整理した。</li><li>秋葉原は地下鉄・TX・JRの改札位置が離れるため、乗り換え時間も観察対象とする。</li><li>臨時ダイヤ、年末年始、工事、事故、天候などにより変更される場合がある。</li><li>調査当日に公式サイト、駅掲示、発車案内で再確認する。</li></ul>
+<h2>出典</h2>
+<ul><li>JR東日本「秋葉原駅 時刻表」</li></ul>
+<p><a href="https://timetables.jreast.co.jp/timetable/list0041.html" target="_blank" rel="noreferrer">https://timetables.jreast.co.jp/timetable/list0041.html</a></p>
+<ul><li>東京メトロ「秋葉原駅 時刻表」</li></ul>
+<p><a href="https://www.tokyometro.jp/station/akihabara/timetable/index.html" target="_blank" rel="noreferrer">https://www.tokyometro.jp/station/akihabara/timetable/index.html</a></p>
+<ul><li>東京メトロ「日比谷線 秋葉原駅 印刷用時刻表」</li></ul>
+<p><a href="https://www.tokyometro.jp/station/timetable/pdf/202603/H16.pdf" target="_blank" rel="noreferrer">https://www.tokyometro.jp/station/timetable/pdf/202603/H16.pdf</a></p>
+  </main>
+</body>
+</html>

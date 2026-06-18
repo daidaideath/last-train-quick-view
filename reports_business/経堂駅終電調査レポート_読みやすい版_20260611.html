@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>経堂駅 終電調査レポート</title>
+  <style>
+    :root {
+      --bg:#eef2f6;
+      --bg-deep:#101827;
+      --paper:#ffffff;
+      --paper-soft:#f8fafc;
+      --text:#172033;
+      --muted:#647084;
+      --line:#d7dee8;
+      --line-strong:#b9c5d4;
+      --accent:#0f766e;
+      --accent-deep:#115e59;
+      --accent-soft:#e6f4f1;
+      --gold:#b7791f;
+      --gold-soft:#fff6df;
+      --blue:#2563eb;
+      --blue-soft:#eaf1ff;
+      --shadow:0 22px 54px rgba(16,24,39,.15);
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0;
+      color:var(--text);
+      background:
+        linear-gradient(180deg,#111827 0,#111827 180px,#eef2f6 180px,#eef2f6 100%);
+      font-family:"Segoe UI","Yu Gothic UI","Yu Gothic",Meiryo,sans-serif;
+      line-height:1.76;
+    }
+    header {
+      color:#dfe7f1;
+      background:transparent;
+    }
+    .bar {
+      width:min(1040px,calc(100% - 32px));
+      margin:0 auto;
+      padding:18px 0;
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      align-items:center;
+      font-size:14px;
+    }
+    .bar a {
+      color:#d7fffb;
+      text-decoration:none;
+      font-weight:800;
+      border-bottom:1px solid rgba(215,255,251,.5);
+    }
+    .bar span { color:#aeb9c8; }
+    main {
+      width:min(1040px,calc(100% - 32px));
+      margin:28px auto 64px;
+      padding:42px 48px 54px;
+      background:var(--paper);
+      border:1px solid rgba(255,255,255,.72);
+      border-radius:16px;
+      box-shadow:var(--shadow);
+    }
+    h1 {
+      margin:0 0 30px;
+      padding-bottom:28px;
+      border-bottom:1px solid var(--line);
+      font-size:clamp(30px,4.4vw,46px);
+      line-height:1.22;
+      letter-spacing:0;
+      color:#101827;
+    }
+    h2 {
+      margin:38px 0 16px;
+      padding-top:20px;
+      border-top:1px solid var(--line);
+      font-size:25px;
+      letter-spacing:0;
+      color:#132033;
+    }
+    h2::before {
+      content:"";
+      display:inline-block;
+      width:6px;
+      height:22px;
+      margin-right:10px;
+      border-radius:99px;
+      background:var(--accent);
+      vertical-align:-4px;
+    }
+    h3 {
+      margin:26px 0 10px;
+      font-size:18px;
+      color:#1c2a3f;
+      letter-spacing:0;
+    }
+    h4 {
+      margin:18px 0 8px;
+      font-size:16px;
+      color:#26344c;
+      letter-spacing:0;
+    }
+    p { margin:10px 0; }
+    ul { margin:10px 0 20px; padding-left:1.35em; }
+    li { margin:6px 0; }
+    .focus-panel {
+      margin:20px 0 28px;
+      padding:20px 22px;
+      border:1px solid #bfd8d4;
+      border-left:6px solid var(--accent);
+      border-radius:14px;
+      background:
+        linear-gradient(135deg,rgba(230,244,241,.95),rgba(255,255,255,.95));
+      box-shadow:0 14px 28px rgba(15,118,110,.10);
+    }
+    .focus-panel h3 {
+      margin-top:0;
+      color:#0f4f49;
+    }
+    .focus-panel ul { margin-bottom:0; }
+    .table-wrap {
+      overflow:auto;
+      margin:16px 0 26px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:#fff;
+      box-shadow:0 8px 20px rgba(16,24,39,.06);
+    }
+    table {
+      width:100%;
+      border-collapse:collapse;
+      min-width:640px;
+      background:#fff;
+      font-size:14px;
+    }
+    th,td {
+      padding:11px 13px;
+      border-bottom:1px solid var(--line);
+      text-align:left;
+      vertical-align:top;
+    }
+    th {
+      color:#0e3136;
+      background:#e8f2f3;
+      font-weight:800;
+      border-bottom:1px solid var(--line-strong);
+    }
+    tr:last-child td { border-bottom:0; }
+    tbody tr.is-weekday td { background:var(--blue-soft); }
+    tbody tr.is-holiday td { background:var(--gold-soft); }
+    tbody tr.is-weekday.is-holiday td {
+      background:linear-gradient(90deg,var(--blue-soft),var(--gold-soft));
+    }
+    .day-badge {
+      display:inline-flex;
+      align-items:center;
+      min-height:20px;
+      padding:1px 8px;
+      border-radius:999px;
+      font-size:.86em;
+      font-weight:800;
+      line-height:1.45;
+      white-space:nowrap;
+    }
+    .day-weekday {
+      color:#174ea6;
+      background:#dbeafe;
+      border:1px solid #bfdbfe;
+    }
+    .day-holiday {
+      color:#8a4b0f;
+      background:#fef3c7;
+      border:1px solid #fde68a;
+    }
+    a {
+      color:var(--accent-deep);
+      overflow-wrap:anywhere;
+      font-weight:700;
+    }
+    @media (max-width:720px) {
+      .bar { align-items:flex-start; flex-direction:column; }
+      main { padding:26px 18px 36px; border-radius:12px; }
+      table { font-size:13px; }
+      h2 { font-size:22px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="bar">
+      <a href="../index.html">駅別クイックビューへ戻る</a>
+      <span>終電調査レポート</span>
+    </div>
+  </header>
+  <main>
+<h1>経堂駅 終電調査レポート</h1>
+<h2>駅・路線の概要</h2>
+<p>経堂駅には小田急小田原線が乗り入れている。公式駅ページでは、急行、準急、通勤準急、各駅停車の停車駅とされている。</p>
+<div class="table-wrap"><table><thead><tr><th>方向</th><th>主な行き先</th><th>次の駅</th></tr></thead><tbody><tr><td>上り</td><td>新宿、代々木上原、東京メトロ千代田線方面</td><td>豪徳寺駅</td></tr><tr><td>下り</td><td>成城学園前、登戸、新百合ヶ丘、町田、小田原、唐木田方面</td><td>千歳船橋駅</td></tr></tbody></table></div>
+<p>駅にはバス停、タクシー乗り場があり、終電後の移動手段を観察しやすい。</p>
+<h2>深夜帯の時系列</h2>
+<section class="focus-panel">
+<h3>主な観察ポイント</h3>
+<div class="table-wrap"><table><thead><tr><th>時刻</th><th>状況</th><th>想定</th></tr></thead><tbody><tr><td>0:31</td><td>上り最終が出発</td><td>以降は新宿方面へ乗車できない</td></tr><tr><td>0:44</td><td>下り最終2本が出発</td><td>以降は小田原方面へ乗車できない</td></tr><tr><td>0:54</td><td>千歳船橋側から経堂止まり到着</td><td>西側から来た降車客が駅外へ移動</td></tr><tr><td>1:00</td><td>豪徳寺側から最後の経堂止まり到着</td><td>新宿側から来た降車客が駅外へ移動</td></tr><tr><td>1:00～1:10ごろ</td><td>全列車終了後</td><td>タクシー、送迎、徒歩などへ移る人に注目</td></tr></tbody></table></div>
+<p>経堂駅では、上下方向の終電出発後に両方向から経堂止まりが到着する。特に0:50以降が、終電後の利用客を観察する中心時間帯になる。</p>
+</section>
+<h2>経堂駅を出る最終列車</h2>
+<p><span class="day-badge day-weekday">平日</span>・土曜<span class="day-badge day-holiday">休日</span>とも、公式時刻表上の最終出発時刻は同じ。</p>
+<div class="table-wrap"><table><thead><tr><th>方向</th><th>最終出発</th><th>行き先</th><th>種別</th></tr></thead><tbody><tr><td>上り</td><td>0:31</td><td>新宿</td><td>各駅停車</td></tr><tr><td>下り</td><td>0:44</td><td>向ヶ丘遊園</td><td>各駅停車</td></tr><tr><td>下り</td><td>0:44</td><td>成城学園前</td><td>急行</td></tr></tbody></table></div>
+<h3>終電を逃す可能性が高まる時間</h3>
+<ul><li>新宿方面は0:31発以降、営業列車がない。</li><li>成城学園前・向ヶ丘遊園方面は0:44発以降、営業列車がない。</li><li>0:54と1:00に到着する経堂止まりの利用客は、経堂駅から先へ小田急線で移動できない。</li></ul>
+<h2>経堂駅に着く終着列車</h2>
+<p>深夜の経堂止まりは、千歳船橋側と豪徳寺側の両方向から設定されている。</p>
+<p><span class="day-badge day-weekday">平日</span>・土曜<span class="day-badge day-holiday">休日</span>とも時刻は同じ。到着時刻は、小田急電鉄公式時刻表の列車別停車駅表示で確認した。</p>
+<div class="table-wrap"><table><thead><tr><th>到着方向</th><th>隣駅発</th><th>経堂到着</th><th>種別</th></tr></thead><tbody><tr><td>千歳船橋側（小田原側）</td><td>千歳船橋 0:53発</td><td>0:54</td><td>各駅停車・経堂行</td></tr><tr><td>豪徳寺側（新宿側）</td><td>豪徳寺 0:58発</td><td>1:00</td><td>各駅停車・経堂行</td></tr></tbody></table></div>
+<h2>見るべきポイント</h2>
+<h3><span class="day-badge day-weekday">平日</span>・土曜<span class="day-badge day-holiday">休日</span>共通</h3>
+<ul><li>調査推奨時間：0:15～1:10ごろ</li><li>特に注目する時間：0:30～1:05ごろ</li><li>最後の経堂止まり到着：1:00</li><li>降車後の移動や待ち合わせを考慮すると、1:05～1:10ごろまで駅から人が出てくる可能性がある。</li></ul>
+<h3>現地で確認したいこと</h3>
+<p>経堂駅で終電を逃した利用客や、経堂止まりの列車から降りる利用客が駅外へ出てくる時間帯を把握するため、最終列車と当駅止まり列車を整理する。</p>
+<h2>現地チェックリスト</h2>
+<ul><li>0:54および1:00の経堂止まり到着後、改札から出てくる人数</li><li>千歳船橋側と豪徳寺側から来る利用客数の違い</li><li>タクシー乗り場へ向かう人数と待機列</li><li>バス、送迎車、徒歩、自転車などへの移動</li><li>駅前で待機する人、電話をする人、経路を検索する人</li><li>経堂コルティ側と反対側への人の流れ</li><li>列車の遅延、運休、臨時列車の有無</li></ul>
+<h2>注意事項</h2>
+<h3>基礎情報</h3>
+<ul><li>調査日：2026年6月11日</li><li>対象駅：小田急小田原線 経堂駅（OH11）</li><li>時刻表：小田急電鉄公式サイトで2026年6月11日に表示された時刻表</li></ul>
+<ul><li>本資料は2026年6月11日に閲覧した小田急電鉄公式情報を基にしている。</li><li>上りPDF時刻表には「2026年3月16日改正」と表示されている。</li><li>小田急公式の動的時刻表には「2026年6月11日現在」と表示されている。</li><li>臨時ダイヤ、年末年始、工事、事故、天候などにより変更される場合がある。</li><li>調査当日に小田急電鉄公式サイト、駅掲示、発車案内で再確認する。</li></ul>
+<h2>出典</h2>
+<ul><li>小田急電鉄「経堂駅のご案内」</li></ul>
+<p><a href="https://www.odakyu.jp/station/kyodo/" target="_blank" rel="noreferrer">https://www.odakyu.jp/station/kyodo/</a></p>
+<ul><li>小田急電鉄「経堂駅 時刻表詳細（上り）」</li></ul>
+<p><a href="https://www.odakyu.jp/station/kyodo/timetable/up/" target="_blank" rel="noreferrer">https://www.odakyu.jp/station/kyodo/timetable/up/</a></p>
+<ul><li>小田急電鉄「経堂駅 時刻表詳細（下り）」</li></ul>
+<p><a href="https://www.odakyu.jp/station/kyodo/timetable/down/" target="_blank" rel="noreferrer">https://www.odakyu.jp/station/kyodo/timetable/down/</a></p>
+<ul><li>小田急電鉄「豪徳寺駅 時刻表詳細（下り）」</li></ul>
+<p><a href="https://www.odakyu.jp/station/gotokuji/timetable/down/" target="_blank" rel="noreferrer">https://www.odakyu.jp/station/gotokuji/timetable/down/</a></p>
+<ul><li>小田急電鉄「千歳船橋駅 時刻表詳細（上り）」</li></ul>
+<p><a href="https://www.odakyu.jp/station/chitose_funabashi/timetable/up/" target="_blank" rel="noreferrer">https://www.odakyu.jp/station/chitose_funabashi/timetable/up/</a></p>
+  </main>
+</body>
+</html>

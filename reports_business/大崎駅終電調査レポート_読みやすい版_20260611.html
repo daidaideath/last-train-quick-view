@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>大崎駅 終電調査レポート</title>
+  <style>
+    :root {
+      --bg:#eef2f6;
+      --bg-deep:#101827;
+      --paper:#ffffff;
+      --paper-soft:#f8fafc;
+      --text:#172033;
+      --muted:#647084;
+      --line:#d7dee8;
+      --line-strong:#b9c5d4;
+      --accent:#0f766e;
+      --accent-deep:#115e59;
+      --accent-soft:#e6f4f1;
+      --gold:#b7791f;
+      --gold-soft:#fff6df;
+      --blue:#2563eb;
+      --blue-soft:#eaf1ff;
+      --shadow:0 22px 54px rgba(16,24,39,.15);
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0;
+      color:var(--text);
+      background:
+        linear-gradient(180deg,#111827 0,#111827 180px,#eef2f6 180px,#eef2f6 100%);
+      font-family:"Segoe UI","Yu Gothic UI","Yu Gothic",Meiryo,sans-serif;
+      line-height:1.76;
+    }
+    header {
+      color:#dfe7f1;
+      background:transparent;
+    }
+    .bar {
+      width:min(1040px,calc(100% - 32px));
+      margin:0 auto;
+      padding:18px 0;
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      align-items:center;
+      font-size:14px;
+    }
+    .bar a {
+      color:#d7fffb;
+      text-decoration:none;
+      font-weight:800;
+      border-bottom:1px solid rgba(215,255,251,.5);
+    }
+    .bar span { color:#aeb9c8; }
+    main {
+      width:min(1040px,calc(100% - 32px));
+      margin:28px auto 64px;
+      padding:42px 48px 54px;
+      background:var(--paper);
+      border:1px solid rgba(255,255,255,.72);
+      border-radius:16px;
+      box-shadow:var(--shadow);
+    }
+    h1 {
+      margin:0 0 30px;
+      padding-bottom:28px;
+      border-bottom:1px solid var(--line);
+      font-size:clamp(30px,4.4vw,46px);
+      line-height:1.22;
+      letter-spacing:0;
+      color:#101827;
+    }
+    h2 {
+      margin:38px 0 16px;
+      padding-top:20px;
+      border-top:1px solid var(--line);
+      font-size:25px;
+      letter-spacing:0;
+      color:#132033;
+    }
+    h2::before {
+      content:"";
+      display:inline-block;
+      width:6px;
+      height:22px;
+      margin-right:10px;
+      border-radius:99px;
+      background:var(--accent);
+      vertical-align:-4px;
+    }
+    h3 {
+      margin:26px 0 10px;
+      font-size:18px;
+      color:#1c2a3f;
+      letter-spacing:0;
+    }
+    h4 {
+      margin:18px 0 8px;
+      font-size:16px;
+      color:#26344c;
+      letter-spacing:0;
+    }
+    p { margin:10px 0; }
+    ul { margin:10px 0 20px; padding-left:1.35em; }
+    li { margin:6px 0; }
+    .focus-panel {
+      margin:20px 0 28px;
+      padding:20px 22px;
+      border:1px solid #bfd8d4;
+      border-left:6px solid var(--accent);
+      border-radius:14px;
+      background:
+        linear-gradient(135deg,rgba(230,244,241,.95),rgba(255,255,255,.95));
+      box-shadow:0 14px 28px rgba(15,118,110,.10);
+    }
+    .focus-panel h3 {
+      margin-top:0;
+      color:#0f4f49;
+    }
+    .focus-panel ul { margin-bottom:0; }
+    .table-wrap {
+      overflow:auto;
+      margin:16px 0 26px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:#fff;
+      box-shadow:0 8px 20px rgba(16,24,39,.06);
+    }
+    table {
+      width:100%;
+      border-collapse:collapse;
+      min-width:640px;
+      background:#fff;
+      font-size:14px;
+    }
+    th,td {
+      padding:11px 13px;
+      border-bottom:1px solid var(--line);
+      text-align:left;
+      vertical-align:top;
+    }
+    th {
+      color:#0e3136;
+      background:#e8f2f3;
+      font-weight:800;
+      border-bottom:1px solid var(--line-strong);
+    }
+    tr:last-child td { border-bottom:0; }
+    tbody tr.is-weekday td { background:var(--blue-soft); }
+    tbody tr.is-holiday td { background:var(--gold-soft); }
+    tbody tr.is-weekday.is-holiday td {
+      background:linear-gradient(90deg,var(--blue-soft),var(--gold-soft));
+    }
+    .day-badge {
+      display:inline-flex;
+      align-items:center;
+      min-height:20px;
+      padding:1px 8px;
+      border-radius:999px;
+      font-size:.86em;
+      font-weight:800;
+      line-height:1.45;
+      white-space:nowrap;
+    }
+    .day-weekday {
+      color:#174ea6;
+      background:#dbeafe;
+      border:1px solid #bfdbfe;
+    }
+    .day-holiday {
+      color:#8a4b0f;
+      background:#fef3c7;
+      border:1px solid #fde68a;
+    }
+    a {
+      color:var(--accent-deep);
+      overflow-wrap:anywhere;
+      font-weight:700;
+    }
+    @media (max-width:720px) {
+      .bar { align-items:flex-start; flex-direction:column; }
+      main { padding:26px 18px 36px; border-radius:12px; }
+      table { font-size:13px; }
+      h2 { font-size:22px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="bar">
+      <a href="../index.html">駅別クイックビューへ戻る</a>
+      <span>終電調査レポート</span>
+    </div>
+  </header>
+  <main>
+<h1>大崎駅 終電調査レポート</h1>
+<h2>駅・路線の概要</h2>
+<p>大崎駅には、JR東日本の山手線、埼京線、湘南新宿ライン、相鉄線直通列車と、東京臨海高速鉄道のりんかい線が乗り入れている。相鉄線直通は運行系統として分けると、合計5系統となる。</p>
+<div class="table-wrap"><table><thead><tr><th>路線・方向</th><th>主な行き先</th><th>大崎駅の次の停車駅</th></tr></thead><tbody><tr><td>山手線・内回り</td><td>品川、東京、上野方面</td><td>品川駅</td></tr><tr><td>山手線・外回り</td><td>渋谷、新宿、池袋方面</td><td>五反田駅</td></tr><tr><td>埼京線・北行</td><td>新宿、赤羽、大宮、川越方面</td><td>恵比寿駅</td></tr><tr><td>湘南新宿ライン・北行</td><td>新宿、大宮、高崎・宇都宮方面</td><td>恵比寿駅または渋谷駅（列車種別による）</td></tr><tr><td>湘南新宿ライン・南行</td><td>横浜、大船、小田原、逗子方面</td><td>西大井駅または武蔵小杉駅（列車による）</td></tr><tr><td>相鉄線直通・南行</td><td>羽沢横浜国大、二俣川、海老名方面</td><td>西大井駅</td></tr><tr><td>りんかい線・新木場方面</td><td>大井町、東京テレポート、国際展示場、新木場方面</td><td>大井町駅</td></tr></tbody></table></div>
+<h2>深夜帯の時系列</h2>
+<h3><span class="day-badge day-weekday">平日</span>の主な観察ポイント</h3>
+<div class="table-wrap"><table><thead><tr><th>時刻</th><th>路線・状況</th><th>想定</th></tr></thead><tbody><tr><td>0:18</td><td>りんかい線の最終が出発</td><td>新木場方面へ向かう最後の利用客が集中する可能性</td></tr><tr><td>0:22～0:24</td><td>山手線の両方向最終が出発</td><td>大崎駅から山手線で移動できなくなる境目</td></tr><tr><td>0:29～0:30ごろ</td><td>両方向から大崎止まり</td><td>最初のまとまった降車が重なる可能性</td></tr><tr><td>0:36～0:37ごろ</td><td>両方向から大崎止まり</td><td>短い間隔で降車客が駅外へ流出</td></tr><tr class="is-weekday"><td>0:40～0:50ごろ</td><td>大崎止まりが連続</td><td><span class="day-badge day-weekday">平日</span>の中心的な観察時間帯</td></tr><tr><td>0:57ごろ</td><td>五反田側から最後の大崎止まり</td><td>駅外への流出は1:00～1:05ごろまで続く可能性</td></tr></tbody></table></div>
+<h3>土曜・<span class="day-badge day-holiday">休日</span>の主な観察ポイント</h3>
+<ul><li>0:18：りんかい線の最終が出発</li><li>0:22～0:24：山手線の両方向最終が出発</li><li>0:29～0:30ごろ：両方向から大崎止まり</li><li>0:34～0:37ごろ：大崎止まりが連続</li><li>0:41～0:49ごろ：両方向から大崎止まり</li><li>0:57ごろ：五反田側から最後の大崎止まり</li></ul>
+<h2>大崎駅を出る最終列車</h2>
+<h3><span class="day-badge day-weekday">平日</span></h3>
+<div class="table-wrap"><table><thead><tr><th>路線・方向</th><th>最終出発</th><th>行き先</th><th>種別</th></tr></thead><tbody><tr><td>山手線・外回り（渋谷・新宿方面）</td><td>0:24</td><td>池袋</td><td>普通</td></tr><tr><td>山手線・内回り（品川・東京方面）</td><td>0:22</td><td>池袋</td><td>普通</td></tr><tr><td>埼京線・川越線（大宮・川越方面）</td><td>23:35</td><td>川越</td><td>普通</td></tr><tr><td>湘南新宿ライン・北行</td><td>23:20</td><td>籠原</td><td>快速</td></tr><tr><td>湘南新宿ライン・南行</td><td>23:10</td><td>国府津</td><td>快速</td></tr><tr><td>相鉄線直通・南行</td><td>23:27</td><td>海老名</td><td>普通</td></tr><tr><td>りんかい線・新木場方面</td><td>0:18</td><td>東京テレポート</td><td>各駅停車・大崎始発</td></tr></tbody></table></div>
+<h3>土曜・<span class="day-badge day-holiday">休日</span></h3>
+<div class="table-wrap"><table><thead><tr><th>路線・方向</th><th>最終出発</th><th>行き先</th><th>種別</th></tr></thead><tbody><tr><td>山手線・外回り（渋谷・新宿方面）</td><td>0:24</td><td>池袋</td><td>普通</td></tr><tr><td>山手線・内回り（品川・東京方面）</td><td>0:22</td><td>池袋</td><td>普通</td></tr><tr><td>埼京線・川越線（大宮・川越方面）</td><td>23:35</td><td>川越</td><td>普通</td></tr><tr><td>湘南新宿ライン・北行</td><td>23:20</td><td>籠原</td><td>快速</td></tr><tr><td>湘南新宿ライン・南行</td><td>23:10</td><td>国府津</td><td>快速</td></tr><tr><td>相鉄線直通・南行</td><td>23:27</td><td>海老名</td><td>普通</td></tr><tr><td>りんかい線・新木場方面</td><td>0:18</td><td>東京テレポート</td><td>各駅停車・大崎始発</td></tr></tbody></table></div>
+<p>JR東日本の大崎駅時刻表に表示されるりんかい線直通列車の最終は、<span class="day-badge day-weekday">平日</span>23:25、土曜<span class="day-badge day-holiday">休日</span>23:29の新木場行である。ただし、東京臨海高速鉄道の公式時刻表には、その後に大崎始発の0:01および0:18東京テレポート行が掲載されている。このため、りんかい線全体の最終は0:18となる。</p>
+<h2>大崎駅に着く終着列車</h2>
+<p>大崎駅の出発時刻表だけでは、大崎に到着して運転を終了する列車を確認できない。このため、外回りは品川駅、内回りは五反田駅の公式時刻表から「大崎行」を抽出した。</p>
+<p>到着時刻は、隣駅の公式発車時刻に通常の駅間所要時間を加えた見込みである。品川駅から大崎駅は約3分、五反田駅から大崎駅は約2分としている。</p>
+<h3><span class="day-badge day-weekday">平日</span>・外回り（品川側から）</h3>
+<div class="table-wrap"><table><thead><tr><th>品川発</th><th>大崎到着見込み</th></tr></thead><tbody><tr><td>0:26</td><td>0:29ごろ</td></tr><tr><td>0:33</td><td>0:36ごろ</td></tr><tr><td>0:37</td><td>0:40ごろ</td></tr><tr><td>0:42</td><td>0:45ごろ</td></tr><tr><td>0:47</td><td>0:50ごろ</td></tr></tbody></table></div>
+<p>このほか、0:03および0:16品川発の大崎行がある。</p>
+<h3><span class="day-badge day-weekday">平日</span>・内回り（五反田側から）</h3>
+<div class="table-wrap"><table><thead><tr><th>五反田発</th><th>大崎到着見込み</th></tr></thead><tbody><tr><td>0:28</td><td>0:30ごろ</td></tr><tr><td>0:35</td><td>0:37ごろ</td></tr><tr><td>0:41</td><td>0:43ごろ</td></tr><tr><td>0:47</td><td>0:49ごろ</td></tr><tr><td>0:55</td><td>0:57ごろ</td></tr></tbody></table></div>
+<p>このほか、0:14五反田発の大崎行がある。</p>
+<h3>土曜・<span class="day-badge day-holiday">休日</span>・外回り（品川側から）</h3>
+<div class="table-wrap"><table><thead><tr><th>品川発</th><th>大崎到着見込み</th></tr></thead><tbody><tr><td>0:26</td><td>0:29ごろ</td></tr><tr><td>0:31</td><td>0:34ごろ</td></tr><tr><td>0:38</td><td>0:41ごろ</td></tr><tr><td>0:43</td><td>0:46ごろ</td></tr></tbody></table></div>
+<p>このほか、0:04品川発の大崎行がある。</p>
+<h3>土曜・<span class="day-badge day-holiday">休日</span>・内回り（五反田側から）</h3>
+<div class="table-wrap"><table><thead><tr><th>五反田発</th><th>大崎到着見込み</th></tr></thead><tbody><tr><td>0:28</td><td>0:30ごろ</td></tr><tr><td>0:35</td><td>0:37ごろ</td></tr><tr><td>0:47</td><td>0:49ごろ</td></tr><tr><td>0:55</td><td>0:57ごろ</td></tr></tbody></table></div>
+<p>このほか、0:14五反田発の大崎行がある。</p>
+<h2>見るべきポイント</h2>
+<h3><span class="day-badge day-weekday">平日</span></h3>
+<ul><li>調査推奨時間：0:15～1:05ごろ</li><li>特に注目する時間：0:20～1:00ごろ</li><li>最後の大崎止まり到着見込み：0:57ごろ</li></ul>
+<h3>土曜・<span class="day-badge day-holiday">休日</span></h3>
+<ul><li>調査推奨時間：0:15～1:05ごろ</li><li>特に注目する時間：0:20～1:00ごろ</li><li>最後の大崎止まり到着見込み：0:57ごろ</li></ul>
+<p>0:20前後に山手線の各方向の最終列車が大崎駅を出発する。その後は品川側と五反田側の両方から大崎止まりが続き、最後の列車は0:57ごろの到着が見込まれる。降車、改札通過、駅前への移動時間を考慮すると、1:05ごろまでの観察が適当と考えられる。</p>
+<h3>現地で確認したいこと</h3>
+<p>大崎駅で終電を逃した利用客と、山手線の大崎止まり列車から降りる利用客が駅外へ出てくる時間帯を把握するため、各路線の最終列車と深夜の大崎止まり列車を整理する。</p>
+<h2>現地チェックリスト</h2>
+<ul><li>山手線大崎止まりの到着ホームと、利用客が向かう改札</li><li>北改札口と南改札口への人流の違い</li><li>大崎止まり到着後、改札から出てくるまでの所要時間</li><li>改札外へ出る人と、構内で待機・移動する人の割合</li><li>0:29～0:37、0:40～0:50、0:57ごろの人数の集中</li><li>JR線とりんかい線の乗り換えを試みる利用客の動き</li><li>タクシー、送迎車、徒歩、シェアサイクルなどへの移動</li><li>駅前で電話、経路検索、宿泊先検索をする人</li><li><span class="day-badge day-weekday">平日</span>と土曜<span class="day-badge day-holiday">休日</span>の大崎止まり本数の違い</li><li>列車の遅延、運休、臨時列車の有無</li></ul>
+<h2>注意事項</h2>
+<h3>基礎情報</h3>
+<ul><li>調査日：2026年6月11日</li><li>対象駅：JR東日本 大崎駅、東京臨海高速鉄道りんかい線 大崎駅</li><li>時刻表：JR東日本および東京臨海高速鉄道の公式サイトで2026年6月11日に確認</li></ul>
+<ul><li>本資料は2026年6月11日に閲覧した公式時刻表を基にしている。</li><li>JR東日本の時刻表は「JR時刻表」2026年6月号に基づく表示である。</li><li>りんかい線公式時刻表の改正日は2026年3月14日である。</li><li>山手線大崎止まりの到着時刻は、隣駅の公式発車時刻から算出した見込みであり、公式の到着時刻そのものではない。</li><li>「24時」は翌日の0時として表記した。</li><li>臨時ダイヤ、年末年始、工事、事故、天候などにより変更される場合がある。</li><li>調査当日に各社公式サイト、駅掲示、発車案内で再確認する。</li></ul>
+<h2>出典</h2>
+<ul><li>JR東日本「大崎駅 時刻表」</li></ul>
+<p><a href="https://timetables.jreast.co.jp/timetable/list0319.html" target="_blank" rel="noreferrer">https://timetables.jreast.co.jp/timetable/list0319.html</a></p>
+<ul><li>JR東日本「大崎駅 山手線 外回り・<span class="day-badge day-weekday">平日</span>」</li></ul>
+<p><a href="https://timetables.jreast.co.jp/2606/timetable/tt0319/0319040.html" target="_blank" rel="noreferrer">https://timetables.jreast.co.jp/2606/timetable/tt0319/0319040.html</a></p>
+<ul><li>JR東日本「大崎駅 山手線 外回り・土曜<span class="day-badge day-holiday">休日</span>」</li></ul>
+<p><a href="https://timetables.jreast.co.jp/2606/timetable/tt0319/0319041.html" target="_blank" rel="noreferrer">https://timetables.jreast.co.jp/2606/timetable/tt0319/0319041.html</a></p>
+<ul><li>JR東日本「大崎駅 山手線 内回り・<span class="day-badge day-weekday">平日</span>」</li></ul>
+<p><a href="https://timetables.jreast.co.jp/2606/timetable/tt0319/0319050.html" target="_blank" rel="noreferrer">https://timetables.jreast.co.jp/2606/timetable/tt0319/0319050.html</a></p>
+<ul><li>JR東日本「大崎駅 山手線 内回り・土曜<span class="day-badge day-holiday">休日</span>」</li></ul>
+<p><a href="https://timetables.jreast.co.jp/2606/timetable/tt0319/0319051.html" target="_blank" rel="noreferrer">https://timetables.jreast.co.jp/2606/timetable/tt0319/0319051.html</a></p>
+<ul><li>JR東日本「品川駅 山手線 外回り・<span class="day-badge day-weekday">平日</span>」</li></ul>
+<p><a href="https://timetables.jreast.co.jp/2606/timetable/tt0788/0788050.html" target="_blank" rel="noreferrer">https://timetables.jreast.co.jp/2606/timetable/tt0788/0788050.html</a></p>
+<ul><li>JR東日本「品川駅 山手線 外回り・土曜<span class="day-badge day-holiday">休日</span>」</li></ul>
+<p><a href="https://timetables.jreast.co.jp/2606/timetable/tt0788/0788051.html" target="_blank" rel="noreferrer">https://timetables.jreast.co.jp/2606/timetable/tt0788/0788051.html</a></p>
+<ul><li>JR東日本「五反田駅 山手線 内回り・<span class="day-badge day-weekday">平日</span>」</li></ul>
+<p><a href="https://timetables.jreast.co.jp/2606/timetable/tt0695/0695020.html" target="_blank" rel="noreferrer">https://timetables.jreast.co.jp/2606/timetable/tt0695/0695020.html</a></p>
+<ul><li>JR東日本「五反田駅 山手線 内回り・土曜<span class="day-badge day-holiday">休日</span>」</li></ul>
+<p><a href="https://timetables.jreast.co.jp/2606/timetable/tt0695/0695021.html" target="_blank" rel="noreferrer">https://timetables.jreast.co.jp/2606/timetable/tt0695/0695021.html</a></p>
+<ul><li>東京臨海高速鉄道「大崎駅 標準時刻表」</li></ul>
+<p><a href="https://www.twr.co.jp/route/tabid/121/Default.aspx" target="_blank" rel="noreferrer">https://www.twr.co.jp/route/tabid/121/Default.aspx</a></p>
+  </main>
+</body>
+</html>

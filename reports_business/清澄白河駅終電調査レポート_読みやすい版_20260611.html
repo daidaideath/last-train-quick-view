@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>清澄白河駅 終電調査レポート</title>
+  <style>
+    :root {
+      --bg:#eef2f6;
+      --bg-deep:#101827;
+      --paper:#ffffff;
+      --paper-soft:#f8fafc;
+      --text:#172033;
+      --muted:#647084;
+      --line:#d7dee8;
+      --line-strong:#b9c5d4;
+      --accent:#0f766e;
+      --accent-deep:#115e59;
+      --accent-soft:#e6f4f1;
+      --gold:#b7791f;
+      --gold-soft:#fff6df;
+      --blue:#2563eb;
+      --blue-soft:#eaf1ff;
+      --shadow:0 22px 54px rgba(16,24,39,.15);
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0;
+      color:var(--text);
+      background:
+        linear-gradient(180deg,#111827 0,#111827 180px,#eef2f6 180px,#eef2f6 100%);
+      font-family:"Segoe UI","Yu Gothic UI","Yu Gothic",Meiryo,sans-serif;
+      line-height:1.76;
+    }
+    header {
+      color:#dfe7f1;
+      background:transparent;
+    }
+    .bar {
+      width:min(1040px,calc(100% - 32px));
+      margin:0 auto;
+      padding:18px 0;
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      align-items:center;
+      font-size:14px;
+    }
+    .bar a {
+      color:#d7fffb;
+      text-decoration:none;
+      font-weight:800;
+      border-bottom:1px solid rgba(215,255,251,.5);
+    }
+    .bar span { color:#aeb9c8; }
+    main {
+      width:min(1040px,calc(100% - 32px));
+      margin:28px auto 64px;
+      padding:42px 48px 54px;
+      background:var(--paper);
+      border:1px solid rgba(255,255,255,.72);
+      border-radius:16px;
+      box-shadow:var(--shadow);
+    }
+    h1 {
+      margin:0 0 30px;
+      padding-bottom:28px;
+      border-bottom:1px solid var(--line);
+      font-size:clamp(30px,4.4vw,46px);
+      line-height:1.22;
+      letter-spacing:0;
+      color:#101827;
+    }
+    h2 {
+      margin:38px 0 16px;
+      padding-top:20px;
+      border-top:1px solid var(--line);
+      font-size:25px;
+      letter-spacing:0;
+      color:#132033;
+    }
+    h2::before {
+      content:"";
+      display:inline-block;
+      width:6px;
+      height:22px;
+      margin-right:10px;
+      border-radius:99px;
+      background:var(--accent);
+      vertical-align:-4px;
+    }
+    h3 {
+      margin:26px 0 10px;
+      font-size:18px;
+      color:#1c2a3f;
+      letter-spacing:0;
+    }
+    h4 {
+      margin:18px 0 8px;
+      font-size:16px;
+      color:#26344c;
+      letter-spacing:0;
+    }
+    p { margin:10px 0; }
+    ul { margin:10px 0 20px; padding-left:1.35em; }
+    li { margin:6px 0; }
+    .focus-panel {
+      margin:20px 0 28px;
+      padding:20px 22px;
+      border:1px solid #bfd8d4;
+      border-left:6px solid var(--accent);
+      border-radius:14px;
+      background:
+        linear-gradient(135deg,rgba(230,244,241,.95),rgba(255,255,255,.95));
+      box-shadow:0 14px 28px rgba(15,118,110,.10);
+    }
+    .focus-panel h3 {
+      margin-top:0;
+      color:#0f4f49;
+    }
+    .focus-panel ul { margin-bottom:0; }
+    .table-wrap {
+      overflow:auto;
+      margin:16px 0 26px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:#fff;
+      box-shadow:0 8px 20px rgba(16,24,39,.06);
+    }
+    table {
+      width:100%;
+      border-collapse:collapse;
+      min-width:640px;
+      background:#fff;
+      font-size:14px;
+    }
+    th,td {
+      padding:11px 13px;
+      border-bottom:1px solid var(--line);
+      text-align:left;
+      vertical-align:top;
+    }
+    th {
+      color:#0e3136;
+      background:#e8f2f3;
+      font-weight:800;
+      border-bottom:1px solid var(--line-strong);
+    }
+    tr:last-child td { border-bottom:0; }
+    tbody tr.is-weekday td { background:var(--blue-soft); }
+    tbody tr.is-holiday td { background:var(--gold-soft); }
+    tbody tr.is-weekday.is-holiday td {
+      background:linear-gradient(90deg,var(--blue-soft),var(--gold-soft));
+    }
+    .day-badge {
+      display:inline-flex;
+      align-items:center;
+      min-height:20px;
+      padding:1px 8px;
+      border-radius:999px;
+      font-size:.86em;
+      font-weight:800;
+      line-height:1.45;
+      white-space:nowrap;
+    }
+    .day-weekday {
+      color:#174ea6;
+      background:#dbeafe;
+      border:1px solid #bfdbfe;
+    }
+    .day-holiday {
+      color:#8a4b0f;
+      background:#fef3c7;
+      border:1px solid #fde68a;
+    }
+    a {
+      color:var(--accent-deep);
+      overflow-wrap:anywhere;
+      font-weight:700;
+    }
+    @media (max-width:720px) {
+      .bar { align-items:flex-start; flex-direction:column; }
+      main { padding:26px 18px 36px; border-radius:12px; }
+      table { font-size:13px; }
+      h2 { font-size:22px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="bar">
+      <a href="../index.html">駅別クイックビューへ戻る</a>
+      <span>終電調査レポート</span>
+    </div>
+  </header>
+  <main>
+<h1>清澄白河駅 終電調査レポート</h1>
+<h2>駅・路線の概要</h2>
+<p>清澄白河駅には、東京メトロ半蔵門線と都営大江戸線の2路線が乗り入れている。</p>
+<div class="table-wrap"><table><thead><tr><th>路線・方向</th><th>主な行き先</th><th>次の駅</th></tr></thead><tbody><tr><td>半蔵門線・渋谷方面</td><td>大手町、九段下、渋谷、東急田園都市線方面</td><td>水天宮前駅</td></tr><tr><td>半蔵門線・押上方面</td><td>住吉、錦糸町、押上、東武線方面</td><td>住吉駅</td></tr><tr><td>大江戸線・両国方面</td><td>両国、上野御徒町、春日方面</td><td>森下駅</td></tr><tr><td>大江戸線・大門方面</td><td>門前仲町、汐留、大門、六本木方面</td><td>門前仲町駅</td></tr></tbody></table></div>
+<h2>深夜帯の時系列</h2>
+<h3><span class="day-badge day-weekday">平日</span>の主な観察ポイント</h3>
+<div class="table-wrap"><table><thead><tr><th>時刻</th><th>路線・状況</th><th>想定</th></tr></thead><tbody><tr><td>0:05～0:16</td><td>大江戸線の各方向最終が出発</td><td>大江戸線を乗り過ごせない時間帯に入る</td></tr><tr><td>0:17ごろ</td><td>大江戸線・門前仲町側から当駅止まり</td><td>降車客が駅外または半蔵門線へ移動</td></tr><tr><td>0:25～0:32ごろ</td><td>半蔵門線終電と大江戸線当駅止まりが集中</td><td>乗換客と終電後の降車客が重なる可能性</td></tr><tr><td>0:36</td><td>半蔵門線の最後の当駅止まり</td><td>半蔵門線からまとまった降車が見込まれる</td></tr><tr><td>0:42～0:44ごろ</td><td>大江戸線の両方向から当駅止まり</td><td>終電後の降車客に注目</td></tr><tr><td>0:54ごろ</td><td>大江戸線・森下側から最後の当駅止まり</td><td>駅外への流出は1:00前後まで続く可能性</td></tr></tbody></table></div>
+<h3>土曜<span class="day-badge day-holiday">休日</span>の主な観察ポイント</h3>
+<ul><li>0:00～0:05：半蔵門線と大江戸線の一部方向で終電</li><li>0:17ごろ：半蔵門線と大江戸線の清澄白河止まりが近接</li><li>0:29～0:31ごろ：大江戸線の両方向から当駅止まり</li><li>0:41～0:43ごろ：大江戸線の両方向から当駅止まり</li><li>0:54ごろ：最後の清澄白河止まり</li></ul>
+<h2>清澄白河駅を出る最終列車</h2>
+<h3>東京メトロ半蔵門線・<span class="day-badge day-weekday">平日</span></h3>
+<div class="table-wrap"><table><thead><tr><th>方向</th><th>最終出発</th><th>行き先</th><th>種別</th></tr></thead><tbody><tr><td>渋谷方面</td><td>0:25</td><td>水天宮前</td><td>各駅停車</td></tr><tr><td>押上方面</td><td>0:31</td><td>押上〈スカイツリー前〉</td><td>各駅停車</td></tr></tbody></table></div>
+<h3>東京メトロ半蔵門線・土曜<span class="day-badge day-holiday">休日</span></h3>
+<div class="table-wrap"><table><thead><tr><th>方向</th><th>最終出発</th><th>行き先</th><th>種別</th></tr></thead><tbody><tr><td>渋谷方面</td><td>0:00</td><td>鷺沼</td><td>各駅停車</td></tr><tr><td>押上方面</td><td>0:04</td><td>北越谷</td><td>準急</td></tr></tbody></table></div>
+<h3>都営大江戸線・<span class="day-badge day-weekday">平日</span></h3>
+<div class="table-wrap"><table><thead><tr><th>方向</th><th>最終出発</th><th>行き先</th></tr></thead><tbody><tr><td>大門・六本木方面</td><td>0:16</td><td>大門・六本木経由 都庁前</td></tr><tr><td>両国・春日方面</td><td>0:05</td><td>新御徒町</td></tr></tbody></table></div>
+<h3>都営大江戸線・土曜<span class="day-badge day-holiday">休日</span></h3>
+<div class="table-wrap"><table><thead><tr><th>方向</th><th>最終出発</th><th>行き先</th></tr></thead><tbody><tr><td>大門・六本木方面</td><td>0:16</td><td>大門・六本木経由 都庁前</td></tr><tr><td>両国・春日方面</td><td>0:05</td><td>新御徒町</td></tr></tbody></table></div>
+<h2>清澄白河駅に着く終着列車</h2>
+<h3>半蔵門線の清澄白河止まり</h3>
+<p>深夜の清澄白河止まりは、水天宮前側から到着する。住吉側から清澄白河止まりとなる深夜列車は公式時刻表上で確認できなかった。</p>
+<h4><span class="day-badge day-weekday">平日</span></h4>
+<div class="table-wrap"><table><thead><tr><th>水天宮前発</th><th>清澄白河到着</th></tr></thead><tbody><tr><td>23:49</td><td>23:52</td></tr><tr><td>0:33</td><td>0:36</td></tr></tbody></table></div>
+<p>0:33水天宮前発の列車は、東京メトロ公式の列車別時刻で清澄白河0:36着と確認した。</p>
+<h4>土曜<span class="day-badge day-holiday">休日</span></h4>
+<div class="table-wrap"><table><thead><tr><th>水天宮前発</th><th>清澄白河到着見込み</th></tr></thead><tbody><tr><td>22:17</td><td>22:20ごろ</td></tr><tr><td>0:14</td><td>0:17ごろ</td></tr></tbody></table></div>
+<p>土曜<span class="day-badge day-holiday">休日</span>の到着時刻は、水天宮前の公式発車時刻に通常の駅間所要時間約3分を加えた見込み。</p>
+<h3>大江戸線の清澄白河止まり</h3>
+<p>大江戸線は、門前仲町側と森下側の両方向から複数の清澄白河止まりが到着する。以下は0時台の列車を整理したもの。</p>
+<p>到着時刻は、隣駅の公式発車時刻に通常の駅間所要時間約2分を加えた見込み。</p>
+<h4><span class="day-badge day-weekday">平日</span>・門前仲町側から</h4>
+<div class="table-wrap"><table><thead><tr><th>門前仲町発</th><th>清澄白河到着見込み</th></tr></thead><tbody><tr><td>0:15</td><td>0:17ごろ</td></tr><tr><td>0:30</td><td>0:32ごろ</td></tr><tr><td>0:42</td><td>0:44ごろ</td></tr></tbody></table></div>
+<h4><span class="day-badge day-weekday">平日</span>・森下側から</h4>
+<div class="table-wrap"><table><thead><tr><th>森下発</th><th>清澄白河到着見込み</th></tr></thead><tbody><tr><td>0:28</td><td>0:30ごろ</td></tr><tr><td>0:40</td><td>0:42ごろ</td></tr><tr><td>0:52</td><td>0:54ごろ</td></tr></tbody></table></div>
+<h4>土曜<span class="day-badge day-holiday">休日</span>・門前仲町側から</h4>
+<div class="table-wrap"><table><thead><tr><th>門前仲町発</th><th>清澄白河到着見込み</th></tr></thead><tbody><tr><td>0:15</td><td>0:17ごろ</td></tr><tr><td>0:29</td><td>0:31ごろ</td></tr><tr><td>0:41</td><td>0:43ごろ</td></tr></tbody></table></div>
+<h4>土曜<span class="day-badge day-holiday">休日</span>・森下側から</h4>
+<div class="table-wrap"><table><thead><tr><th>森下発</th><th>清澄白河到着見込み</th></tr></thead><tbody><tr><td>0:27</td><td>0:29ごろ</td></tr><tr><td>0:39</td><td>0:41ごろ</td></tr><tr><td>0:52</td><td>0:54ごろ</td></tr></tbody></table></div>
+<h2>見るべきポイント</h2>
+<h3><span class="day-badge day-weekday">平日</span></h3>
+<ul><li>調査推奨時間：0:10～1:05ごろ</li><li>特に注目する時間：0:25～1:00ごろ</li><li>最後の清澄白河止まり到着見込み：0:54ごろ（都営大江戸線）</li></ul>
+<h3>土曜・<span class="day-badge day-holiday">休日</span></h3>
+<ul><li>調査推奨時間：23:50～1:05ごろ</li><li>特に注目する時間：0:05～1:00ごろ</li><li>最後の清澄白河止まり到着見込み：0:54ごろ（都営大江戸線）</li></ul>
+<p>半蔵門線は<span class="day-badge day-weekday">平日</span>と土曜<span class="day-badge day-holiday">休日</span>で終電時刻の差が大きい。一方、大江戸線は曜日を問わず0:50台まで清澄白河止まりが到着するため、駅全体の調査終了は1:05ごろが目安となる。</p>
+<h3>現地で確認したいこと</h3>
+<p>清澄白河駅で終電を逃した利用客や、清澄白河止まりの列車から降りる利用客が駅外へ出てくる時間帯を把握するため、2路線の最終列車と当駅止まり列車を整理する。</p>
+<h2>現地チェックリスト</h2>
+<ul><li>半蔵門線と大江戸線で、利用する改札・出口が異なるか</li><li>清澄白河止まり到着後、改札から出てくる人数</li><li>改札外へ出る人と、駅構内で別路線へ乗り換える人の割合</li><li>0:30前後、0:40台、0:54ごろの人の集中</li><li>タクシー、送迎車、徒歩、自転車などへの移動</li><li>駅前で待機する人、電話をする人、経路を検索する人</li><li><span class="day-badge day-weekday">平日</span>と土曜<span class="day-badge day-holiday">休日</span>の半蔵門線終電時刻差による人流の違い</li><li>列車の遅延、運休、臨時列車の有無</li></ul>
+<h2>注意事項</h2>
+<h3>基礎情報</h3>
+<ul><li>調査日：2026年6月11日</li><li>対象駅：東京メトロ半蔵門線 清澄白河駅（Z11）、都営大江戸線 清澄白河駅（E14）</li><li>時刻表：各鉄道事業者の公式サイトで2026年6月11日に確認</li></ul>
+<ul><li>本資料は2026年6月11日に閲覧した東京メトロおよび東京都交通局の公式情報を基にしている。</li><li>都営大江戸線の公式時刻表には「令和7年3月15日改正」と表示されている。</li><li>大江戸線の到着見込みは隣駅の公式発車時刻から算出した推定値である。</li><li>半蔵門線土曜<span class="day-badge day-holiday">休日</span>の到着見込みは隣駅の公式発車時刻から算出した推定値である。</li><li>臨時ダイヤ、年末年始、工事、事故、天候などにより変更される場合がある。</li><li>調査当日に各社公式サイト、駅掲示、発車案内で再確認する。</li></ul>
+<h2>出典</h2>
+<ul><li>東京メトロ「清澄白河駅 時刻表」</li></ul>
+<p><a href="https://www.tokyometro.jp/station/kiyosumi-shirakawa/timetable/index.html" target="_blank" rel="noreferrer">https://www.tokyometro.jp/station/kiyosumi-shirakawa/timetable/index.html</a></p>
+<ul><li>東京メトロ「水天宮前駅 時刻表」</li></ul>
+<p><a href="https://www.tokyometro.jp/station/suitengumae/timetable/index.html" target="_blank" rel="noreferrer">https://www.tokyometro.jp/station/suitengumae/timetable/index.html</a></p>
+<ul><li>東京メトロ「住吉駅 時刻表」</li></ul>
+<p><a href="https://www.tokyometro.jp/station/sumiyoshi/timetable/index.html" target="_blank" rel="noreferrer">https://www.tokyometro.jp/station/sumiyoshi/timetable/index.html</a></p>
+<ul><li>東京都交通局「清澄白河 <span class="day-badge day-weekday">平日</span>：大門・六本木方面」</li></ul>
+<p><a href="https://www.kotsu.metro.tokyo.jp/subway/timetable/oedo/E14BD.html" target="_blank" rel="noreferrer">https://www.kotsu.metro.tokyo.jp/subway/timetable/oedo/E14BD.html</a></p>
+<ul><li>東京都交通局「清澄白河 <span class="day-badge day-weekday">平日</span>：両国・春日方面」</li></ul>
+<p><a href="https://www.kotsu.metro.tokyo.jp/subway/timetable/oedo/E14AD.html" target="_blank" rel="noreferrer">https://www.kotsu.metro.tokyo.jp/subway/timetable/oedo/E14AD.html</a></p>
+<ul><li>東京都交通局「清澄白河 土曜・<span class="day-badge day-holiday">休日</span>：大門・六本木方面」</li></ul>
+<p><a href="https://www.kotsu.metro.tokyo.jp/subway/timetable/oedo/E14BH.html" target="_blank" rel="noreferrer">https://www.kotsu.metro.tokyo.jp/subway/timetable/oedo/E14BH.html</a></p>
+<ul><li>東京都交通局「清澄白河 土曜・<span class="day-badge day-holiday">休日</span>：両国・春日方面」</li></ul>
+<p><a href="https://www.kotsu.metro.tokyo.jp/subway/timetable/oedo/E14AH.html" target="_blank" rel="noreferrer">https://www.kotsu.metro.tokyo.jp/subway/timetable/oedo/E14AH.html</a></p>
+<ul><li>東京都交通局「門前仲町 大江戸線時刻表」</li></ul>
+<p><a href="https://www.kotsu.metro.tokyo.jp/subway/timetable/oedo/E15AD.html" target="_blank" rel="noreferrer">https://www.kotsu.metro.tokyo.jp/subway/timetable/oedo/E15AD.html</a></p>
+<p><a href="https://www.kotsu.metro.tokyo.jp/subway/timetable/oedo/E15AH.html" target="_blank" rel="noreferrer">https://www.kotsu.metro.tokyo.jp/subway/timetable/oedo/E15AH.html</a></p>
+<ul><li>東京都交通局「森下 大江戸線時刻表」</li></ul>
+<p><a href="https://www.kotsu.metro.tokyo.jp/subway/timetable/oedo/E13BD.html" target="_blank" rel="noreferrer">https://www.kotsu.metro.tokyo.jp/subway/timetable/oedo/E13BD.html</a></p>
+<p><a href="https://www.kotsu.metro.tokyo.jp/subway/timetable/oedo/E13BH.html" target="_blank" rel="noreferrer">https://www.kotsu.metro.tokyo.jp/subway/timetable/oedo/E13BH.html</a></p>
+  </main>
+</body>
+</html>

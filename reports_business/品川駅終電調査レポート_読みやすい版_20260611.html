@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>品川駅 終電調査レポート</title>
+  <style>
+    :root {
+      --bg:#eef2f6;
+      --bg-deep:#101827;
+      --paper:#ffffff;
+      --paper-soft:#f8fafc;
+      --text:#172033;
+      --muted:#647084;
+      --line:#d7dee8;
+      --line-strong:#b9c5d4;
+      --accent:#0f766e;
+      --accent-deep:#115e59;
+      --accent-soft:#e6f4f1;
+      --gold:#b7791f;
+      --gold-soft:#fff6df;
+      --blue:#2563eb;
+      --blue-soft:#eaf1ff;
+      --shadow:0 22px 54px rgba(16,24,39,.15);
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0;
+      color:var(--text);
+      background:
+        linear-gradient(180deg,#111827 0,#111827 180px,#eef2f6 180px,#eef2f6 100%);
+      font-family:"Segoe UI","Yu Gothic UI","Yu Gothic",Meiryo,sans-serif;
+      line-height:1.76;
+    }
+    header {
+      color:#dfe7f1;
+      background:transparent;
+    }
+    .bar {
+      width:min(1040px,calc(100% - 32px));
+      margin:0 auto;
+      padding:18px 0;
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      align-items:center;
+      font-size:14px;
+    }
+    .bar a {
+      color:#d7fffb;
+      text-decoration:none;
+      font-weight:800;
+      border-bottom:1px solid rgba(215,255,251,.5);
+    }
+    .bar span { color:#aeb9c8; }
+    main {
+      width:min(1040px,calc(100% - 32px));
+      margin:28px auto 64px;
+      padding:42px 48px 54px;
+      background:var(--paper);
+      border:1px solid rgba(255,255,255,.72);
+      border-radius:16px;
+      box-shadow:var(--shadow);
+    }
+    h1 {
+      margin:0 0 30px;
+      padding-bottom:28px;
+      border-bottom:1px solid var(--line);
+      font-size:clamp(30px,4.4vw,46px);
+      line-height:1.22;
+      letter-spacing:0;
+      color:#101827;
+    }
+    h2 {
+      margin:38px 0 16px;
+      padding-top:20px;
+      border-top:1px solid var(--line);
+      font-size:25px;
+      letter-spacing:0;
+      color:#132033;
+    }
+    h2::before {
+      content:"";
+      display:inline-block;
+      width:6px;
+      height:22px;
+      margin-right:10px;
+      border-radius:99px;
+      background:var(--accent);
+      vertical-align:-4px;
+    }
+    h3 {
+      margin:26px 0 10px;
+      font-size:18px;
+      color:#1c2a3f;
+      letter-spacing:0;
+    }
+    h4 {
+      margin:18px 0 8px;
+      font-size:16px;
+      color:#26344c;
+      letter-spacing:0;
+    }
+    p { margin:10px 0; }
+    ul { margin:10px 0 20px; padding-left:1.35em; }
+    li { margin:6px 0; }
+    .focus-panel {
+      margin:20px 0 28px;
+      padding:20px 22px;
+      border:1px solid #bfd8d4;
+      border-left:6px solid var(--accent);
+      border-radius:14px;
+      background:
+        linear-gradient(135deg,rgba(230,244,241,.95),rgba(255,255,255,.95));
+      box-shadow:0 14px 28px rgba(15,118,110,.10);
+    }
+    .focus-panel h3 {
+      margin-top:0;
+      color:#0f4f49;
+    }
+    .focus-panel ul { margin-bottom:0; }
+    .table-wrap {
+      overflow:auto;
+      margin:16px 0 26px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:#fff;
+      box-shadow:0 8px 20px rgba(16,24,39,.06);
+    }
+    table {
+      width:100%;
+      border-collapse:collapse;
+      min-width:640px;
+      background:#fff;
+      font-size:14px;
+    }
+    th,td {
+      padding:11px 13px;
+      border-bottom:1px solid var(--line);
+      text-align:left;
+      vertical-align:top;
+    }
+    th {
+      color:#0e3136;
+      background:#e8f2f3;
+      font-weight:800;
+      border-bottom:1px solid var(--line-strong);
+    }
+    tr:last-child td { border-bottom:0; }
+    tbody tr.is-weekday td { background:var(--blue-soft); }
+    tbody tr.is-holiday td { background:var(--gold-soft); }
+    tbody tr.is-weekday.is-holiday td {
+      background:linear-gradient(90deg,var(--blue-soft),var(--gold-soft));
+    }
+    .day-badge {
+      display:inline-flex;
+      align-items:center;
+      min-height:20px;
+      padding:1px 8px;
+      border-radius:999px;
+      font-size:.86em;
+      font-weight:800;
+      line-height:1.45;
+      white-space:nowrap;
+    }
+    .day-weekday {
+      color:#174ea6;
+      background:#dbeafe;
+      border:1px solid #bfdbfe;
+    }
+    .day-holiday {
+      color:#8a4b0f;
+      background:#fef3c7;
+      border:1px solid #fde68a;
+    }
+    a {
+      color:var(--accent-deep);
+      overflow-wrap:anywhere;
+      font-weight:700;
+    }
+    @media (max-width:720px) {
+      .bar { align-items:flex-start; flex-direction:column; }
+      main { padding:26px 18px 36px; border-radius:12px; }
+      table { font-size:13px; }
+      h2 { font-size:22px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="bar">
+      <a href="../index.html">駅別クイックビューへ戻る</a>
+      <span>終電調査レポート</span>
+    </div>
+  </header>
+  <main>
+<h1>品川駅 終電調査レポート</h1>
+<h2>駅・路線の概要</h2>
+<p>品川駅には、JR東日本の東海道線、上野東京ライン、常磐線直通、山手線、横須賀線、京浜東北線、成田エクスプレス、JR東海の東海道新幹線、京浜急行電鉄の京急本線が乗り入れている。</p>
+<div class="table-wrap"><table><thead><tr><th>路線・方向</th><th>主な行き先</th><th>品川駅の次の停車駅</th></tr></thead><tbody><tr><td>東海道線・下り</td><td>川崎、横浜、小田原、熱海方面</td><td>川崎駅</td></tr><tr><td>東海道線・上野東京ライン北行</td><td>東京、上野、大宮、高崎・宇都宮方面</td><td>新橋駅</td></tr><tr><td>常磐線直通</td><td>上野、柏、取手、土浦方面</td><td>新橋駅</td></tr><tr><td>山手線・外回り</td><td>大崎、渋谷、新宿方面</td><td>大崎駅</td></tr><tr><td>山手線・内回り</td><td>東京、上野、池袋方面</td><td>高輪ゲートウェイ駅</td></tr><tr><td>横須賀線・下り</td><td>武蔵小杉、横浜、鎌倉、久里浜方面</td><td>西大井駅</td></tr><tr><td>横須賀・総武快速線・上り</td><td>東京、錦糸町、千葉方面</td><td>新橋駅</td></tr><tr><td>京浜東北線・南行</td><td>大井町、蒲田、横浜、大船方面</td><td>大井町駅</td></tr><tr><td>京浜東北線・北行</td><td>東京、上野、大宮方面</td><td>高輪ゲートウェイ駅</td></tr><tr><td>東海道新幹線・下り</td><td>新横浜、名古屋、新大阪方面</td><td>新横浜駅</td></tr><tr><td>東海道新幹線・上り</td><td>東京方面</td><td>東京駅</td></tr><tr><td>京急本線・下り</td><td>羽田空港、横浜、横須賀、三崎口方面</td><td>北品川駅</td></tr><tr><td>京急本線・上り</td><td>泉岳寺、都営浅草線、京成線方面</td><td>泉岳寺駅</td></tr></tbody></table></div>
+<h2>深夜帯の時系列</h2>
+<h3><span class="day-badge day-weekday">平日</span>の主な観察ポイント</h3>
+<div class="table-wrap"><table><thead><tr><th>時刻</th><th>路線・状況</th><th>想定</th></tr></thead><tbody><tr><td>0:00～0:06</td><td>京急線の上下最終、東海道線下り最終</td><td>複数方面の終電利用客が集中</td></tr><tr><td>0:18ごろ</td><td>京急線の最後の品川止まり</td><td>京急高輪口側へまとまった降車が見込まれる</td></tr><tr><td>0:20～0:30</td><td>山手線の主要方面最終、京浜東北線北行最終</td><td>JR線の終電を逃す利用客が増える時間帯</td></tr><tr><td>0:46～0:49ごろ</td><td>京浜東北線南行最終、山手線品川止まり</td><td>JR改札付近の人流が重なる可能性</td></tr><tr><td>0:54ごろ</td><td>山手線品川止まり</td><td>終電後の降車客に注目</td></tr><tr><td>0:59ごろ</td><td>最後の山手線品川止まり</td><td>駅外への流出は1:05～1:10ごろまで続く可能性</td></tr></tbody></table></div>
+<h3>土曜・<span class="day-badge day-holiday">休日</span>の主な観察ポイント</h3>
+<ul><li>23:57～0:06：京急線の上下最終と東海道線下り最終</li><li>0:18ごろ：京急線の最後の品川止まり</li><li>0:20～0:30：山手線・京浜東北線の主要な最終列車</li><li>0:43～0:49ごろ：山手線外回り最終と品川止まり到着</li><li>0:54、0:59ごろ：最後の山手線品川止まり</li></ul>
+<h2>品川駅を出る最終列車</h2>
+<h3>品川駅から出発する最終列車</h3>
+<h4>JR在来線・<span class="day-badge day-weekday">平日</span></h4>
+<div class="table-wrap"><table><thead><tr><th>路線・方向</th><th>最終出発</th><th>行き先</th><th>種別</th></tr></thead><tbody><tr><td>東海道線・下り</td><td>0:04</td><td>平塚</td><td>普通</td></tr><tr><td>東海道線・上野東京ライン北行</td><td>23:39</td><td>東京</td><td>普通</td></tr><tr><td>上野東京ライン・常磐線方面</td><td>22:56</td><td>土浦</td><td>普通</td></tr><tr><td>山手線・外回り（渋谷・新宿方面）</td><td>0:47</td><td>大崎</td><td>普通</td></tr><tr><td>山手線・内回り（東京・上野方面）</td><td>0:25</td><td>池袋</td><td>普通</td></tr><tr><td>横須賀線・下り</td><td>23:59</td><td>大船</td><td>普通</td></tr><tr><td>横須賀・総武快速線・上り</td><td>23:52</td><td>千葉</td><td>普通・総武線内快速</td></tr><tr><td>京浜東北線・南行</td><td>0:46</td><td>蒲田</td><td>普通</td></tr><tr><td>京浜東北線・北行</td><td>0:30</td><td>上野</td><td>普通</td></tr></tbody></table></div>
+<h4>京浜東北線・行き先別の実質最終</h4>
+<p>最終列車だけを見ると南行は0:46蒲田行、北行は0:30上野行である。ただし、蒲田・上野より先へ行ける列車はその前に終わる。</p>
+<div class="table-wrap"><table><thead><tr><th>方向</th><th>行ける範囲</th><th>品川駅発</th><th>行き先</th><th>見るポイント</th></tr></thead><tbody><tr><td>南行</td><td>大船まで</td><td>23:53</td><td>大船</td><td>根岸線方面まで届く最終より早い</td></tr><tr><td>南行</td><td>横浜・桜木町方面まで</td><td>0:10</td><td>桜木町</td><td>蒲田より先へ行ける最後</td></tr><tr><td>南行</td><td>磯子方面まで</td><td>0:05</td><td>磯子</td><td>根岸線方面の実質最終</td></tr><tr><td>北行</td><td>大宮まで</td><td>23:47</td><td>大宮</td><td>上野より先の埼玉方面へ行ける最後の大宮行</td></tr><tr><td>北行</td><td>南浦和まで</td><td>0:09</td><td>南浦和</td><td>上野より先へ行ける最後</td></tr><tr><td>北行</td><td>上野まで</td><td>0:30</td><td>上野</td><td>路線としての最終</td></tr></tbody></table></div>
+<h4>JR在来線・土曜・<span class="day-badge day-holiday">休日</span></h4>
+<div class="table-wrap"><table><thead><tr><th>路線・方向</th><th>最終出発</th><th>行き先</th><th>種別</th></tr></thead><tbody><tr><td>東海道線・下り</td><td>0:04</td><td>平塚</td><td>普通</td></tr><tr><td>東海道線・上野東京ライン北行</td><td>23:39</td><td>東京</td><td>普通</td></tr><tr><td>上野東京ライン・常磐線方面</td><td>22:56</td><td>土浦</td><td>普通</td></tr><tr><td>山手線・外回り（渋谷・新宿方面）</td><td>0:43</td><td>大崎</td><td>普通</td></tr><tr><td>山手線・内回り（東京・上野方面）</td><td>0:25</td><td>池袋</td><td>普通</td></tr><tr><td>横須賀線・下り</td><td>23:59</td><td>大船</td><td>普通</td></tr><tr><td>横須賀・総武快速線・上り</td><td>23:52</td><td>千葉</td><td>普通・総武線内快速</td></tr><tr><td>京浜東北線・南行</td><td>0:46</td><td>蒲田</td><td>普通</td></tr><tr><td>京浜東北線・北行</td><td>0:30</td><td>上野</td><td>普通</td></tr></tbody></table></div>
+<h4>京浜東北線・行き先別の実質最終</h4>
+<div class="table-wrap"><table><thead><tr><th>方向</th><th>行ける範囲</th><th>品川駅発</th><th>行き先</th><th>見るポイント</th></tr></thead><tbody><tr><td>南行</td><td>大船まで</td><td>23:53</td><td>大船</td><td>根岸線方面まで届く最終より早い</td></tr><tr><td>南行</td><td>横浜・桜木町方面まで</td><td>0:10</td><td>桜木町</td><td>蒲田より先へ行ける最後</td></tr><tr><td>南行</td><td>磯子方面まで</td><td>0:05</td><td>磯子</td><td>根岸線方面の実質最終</td></tr><tr><td>北行</td><td>大宮まで</td><td>23:47</td><td>大宮</td><td>上野より先の埼玉方面へ行ける最後の大宮行</td></tr><tr><td>北行</td><td>南浦和まで</td><td>0:09</td><td>南浦和</td><td>上野より先へ行ける最後</td></tr><tr><td>北行</td><td>上野まで</td><td>0:30</td><td>上野</td><td>路線としての最終</td></tr></tbody></table></div>
+<p>山手線外回りの最後の列車は大崎止まりである。池袋方面まで移動できる最終は、<span class="day-badge day-weekday">平日</span>・土曜<span class="day-badge day-holiday">休日</span>とも0:20品川発となる。</p>
+<h3>東海道新幹線の最終列車</h3>
+<p>2026年6月11日のJR東海公式発車順序案内で確認した。</p>
+<div class="table-wrap"><table><thead><tr><th>方向</th><th>最終出発</th><th>列車</th><th>行き先</th></tr></thead><tbody><tr><td>下り</td><td>22:55</td><td>こだま915号</td><td>三島</td></tr><tr><td>上り</td><td>23:39</td><td>のぞみ64号</td><td>東京</td></tr></tbody></table></div>
+<p>下りの主な遠距離方面では、新大阪行の最終が21:31、名古屋行の最終が22:10である。その後は静岡行22:19、三島行22:55となる。</p>
+<p>新幹線は在来線・京急線より早く終了するため、0時台の駅外流出を直接生む路線ではない。ただし、最終新幹線到着後の在来線・京急線への乗り換え失敗は観察対象となり得る。</p>
+<h3>京急線の最終列車</h3>
+<p>京急公式の品川駅標準時刻表は、土曜<span class="day-badge day-holiday">休日</span>が2025年12月13日改正、<span class="day-badge day-weekday">平日</span>が2025年12月15日改正である。</p>
+<div class="table-wrap"><table><thead><tr><th>曜日</th><th>方向</th><th>最終出発</th><th>行き先</th><th>種別</th></tr></thead><tbody><tr class="is-weekday"><td><span class="day-badge day-weekday">平日</span></td><td>上り・泉岳寺方面</td><td>0:00</td><td>泉岳寺</td><td>普通</td></tr><tr class="is-weekday"><td><span class="day-badge day-weekday">平日</span></td><td>下り・羽田空港、横浜方面</td><td>0:06</td><td>京急川崎</td><td>普通</td></tr><tr class="is-holiday"><td>土曜<span class="day-badge day-holiday">休日</span></td><td>上り・泉岳寺方面</td><td>23:57</td><td>泉岳寺</td><td>急行</td></tr><tr class="is-holiday"><td>土曜<span class="day-badge day-holiday">休日</span></td><td>下り・羽田空港、横浜方面</td><td>0:06</td><td>京急川崎</td><td>普通</td></tr></tbody></table></div>
+<p>空港方面や横浜以遠へ向かう列車は、上表の最終列車より早く終了する。調査時には、単純な「京急線最終」だけでなく、羽田空港・横浜・三浦半島方面の目的地別最終を逃した利用客にも注意する。</p>
+<h2>品川駅に着く終着列車</h2>
+<h3>山手線・田町側から</h3>
+<p>田町駅の山手線外回り公式時刻表から「品川行」を抽出した。田町駅からは高輪ゲートウェイ駅を経由し、品川駅まで通常約4分として到着時刻を見込んだ。</p>
+<h4><span class="day-badge day-weekday">平日</span>・土曜<span class="day-badge day-holiday">休日</span>共通</h4>
+<div class="table-wrap"><table><thead><tr><th>田町発</th><th>品川到着見込み</th></tr></thead><tbody><tr><td>0:45</td><td>0:49ごろ</td></tr><tr><td>0:50</td><td>0:54ごろ</td></tr><tr><td>0:55</td><td>0:59ごろ</td></tr></tbody></table></div>
+<h3>山手線・大崎側から</h3>
+<p>大崎駅の山手線内回りは「品川・東京方面」であり、品川駅には到着する。ただし公式時刻表上、深夜帯に大崎発の「品川行」は確認できない。大崎側から来る列車は品川で終着せず、環状運転または池袋行として先へ進むため、「品川駅に着く終着列車」としては数えない。</p>
+<div class="table-wrap"><table><thead><tr><th>曜日</th><th>手前駅・確認駅</th><th>確認結果</th><th>見るポイント</th></tr></thead><tbody><tr class="is-weekday"><td><span class="day-badge day-weekday">平日</span></td><td>大崎</td><td>品川行は確認できない。深夜帯は環状運転または池袋行</td><td>品川止まりの降車客として扱わない</td></tr><tr class="is-holiday"><td>土曜・<span class="day-badge day-holiday">休日</span></td><td>大崎</td><td>品川行は確認できない。深夜帯は環状運転または池袋行</td><td>品川止まりの降車客として扱わない</td></tr></tbody></table></div>
+<h3>京急線・北品川側から</h3>
+<p>北品川駅の上り公式時刻表では、<span class="day-badge day-weekday">平日</span>・土曜<span class="day-badge day-holiday">休日</span>とも0:16発が品川行の最終である。通常の駅間所要時間から、品川駅には0:18ごろ到着すると見込まれる。</p>
+<p>北品川駅からの主な品川行は次のとおり。</p>
+<div class="table-wrap"><table><thead><tr><th>曜日</th><th>北品川発</th></tr></thead><tbody><tr class="is-weekday"><td><span class="day-badge day-weekday">平日</span></td><td>23:10、23:24、23:35、23:55、0:16</td></tr><tr class="is-holiday"><td>土曜<span class="day-badge day-holiday">休日</span></td><td>23:10、23:27、23:39、23:53、0:16</td></tr></tbody></table></div>
+<p>京浜東北線については、田町駅の深夜時刻表上に品川行は確認できなかった。0時台の南行列車は蒲田方面まで運転する。</p>
+<h2>見るべきポイント</h2>
+<h3><span class="day-badge day-weekday">平日</span></h3>
+<ul><li>調査推奨時間：0:10～1:10ごろ</li><li>特に注目する時間：0:15～1:05ごろ</li><li>最後の品川止まり到着見込み：0:59ごろ（山手線）</li><li>京浜東北線の行き先別最終：南行は0:10桜木町行、北行は0:09南浦和行が、蒲田・上野より先へ行ける最後</li></ul>
+<h3>土曜・<span class="day-badge day-holiday">休日</span></h3>
+<ul><li>調査推奨時間：0:10～1:10ごろ</li><li>特に注目する時間：0:15～1:05ごろ</li><li>最後の品川止まり到着見込み：0:59ごろ（山手線）</li><li>京浜東北線の行き先別最終：南行は0:10桜木町行、北行は0:09南浦和行が、蒲田・上野より先へ行ける最後</li></ul>
+<p>0:18ごろに京急線の最後の品川止まりが到着する。その後もJR線は運転を続け、京浜東北線は北行0:30上野行、南行0:46蒲田行まで残る。ただし蒲田・上野より先へ行ける列車は南行0:10桜木町行、北行0:09南浦和行が最後である。田町側から来る山手線品川止まりは0:59ごろまで到着するため、改札通過時間を含めて1:10ごろまでの観察が適当と考えられる。</p>
+<h3>現地で確認したいこと</h3>
+<p>品川駅で終電を逃した利用客と、品川止まりの列車から降りる利用客が駅外へ出てくる時間帯を把握するため、JR在来線、東海道新幹線、京急線の最終列車と深夜の品川止まり列車を整理する。京浜東北線は「蒲田・上野止まりの最終」と「それより先へ行ける実質最終」を分けて見る。</p>
+<h2>現地チェックリスト</h2>
+<ul><li>JR高輪口・港南口・京急高輪口での人流の違い</li><li>山手線品川止まり到着後、利用客が改札へ出るまでの時間</li><li>京急線品川止まりの降車客がJRへ向かうか、駅外へ出るか</li><li>0:18、0:49、0:54、0:59ごろの降車人数</li><li>京浜東北線の0:09南浦和行、0:10桜木町行、0:30上野行、0:46蒲田行を逃した利用客の違い</li><li>終電後に高輪口と港南口のどちらへ移動する人が多いか</li><li>タクシー乗り場、送迎車、ホテル方面へ向かう人の動き</li><li>羽田空港方面の列車を逃した利用客の行動</li><li>新幹線から在来線・京急線への最終乗り換え状況</li><li>駅前で電話、経路検索、宿泊先検索をする人</li><li><span class="day-badge day-weekday">平日</span>と土曜<span class="day-badge day-holiday">休日</span>の京急上り最終時刻の違い</li><li>列車の遅延、運休、臨時列車の有無</li></ul>
+<h2>注意事項</h2>
+<h3>基礎情報</h3>
+<ul><li>調査日：2026年6月11日</li><li>対象駅：JR東日本・JR東海・京浜急行電鉄 品川駅</li><li>時刻表：各鉄道事業者の公式サイトで2026年6月11日に確認</li></ul>
+<ul><li>本資料は2026年6月11日に閲覧した公式時刻表を基にしている。</li><li>JR東日本の時刻表は「JR時刻表」2026年6月号に基づく表示である。</li><li>東海道新幹線は調査日のJR東海公式発車順序案内で確認した。臨時列車の運転日により最終列車の列車番号などが変わる可能性がある。</li><li>山手線と京急線の品川到着時刻は、隣駅の公式発車時刻から算出した見込みである。</li><li>大崎側からの山手線は品川に到着するが、品川行の終着列車としては確認できなかった。</li><li>京急線は目的地により実質的な最終列車が大きく異なる。</li><li>臨時ダイヤ、年末年始、工事、事故、天候などにより変更される場合がある。</li><li>調査当日に各社公式サイト、駅掲示、発車案内で再確認する。</li></ul>
+<h2>出典</h2>
+<ul><li>JR東日本「品川駅 時刻表」</li></ul>
+<p><a href="https://timetables.jreast.co.jp/timetable/list0788.html" target="_blank" rel="noreferrer">https://timetables.jreast.co.jp/timetable/list0788.html</a></p>
+<ul><li>JR東日本「田町駅 時刻表」</li></ul>
+<p><a href="https://timetables.jreast.co.jp/timetable/list0976.html" target="_blank" rel="noreferrer">https://timetables.jreast.co.jp/timetable/list0976.html</a></p>
+<ul><li>JR東日本「大崎駅 時刻表」</li></ul>
+<p><a href="https://timetables.jreast.co.jp/timetable/list0319.html" target="_blank" rel="noreferrer">https://timetables.jreast.co.jp/timetable/list0319.html</a></p>
+<ul><li>JR東海「品川駅 博多方面（下り）発車順序案内」</li></ul>
+<p><a href="https://traininfo.jr-central.co.jp/shinkansen/sp/ja/ti04.html?station=2&amp;bound=2" target="_blank" rel="noreferrer">https://traininfo.jr-central.co.jp/shinkansen/sp/ja/ti04.html?station=2&amp;bound=2</a></p>
+<ul><li>JR東海「品川駅 東京方面（上り）発車順序案内」</li></ul>
+<p><a href="https://traininfo.jr-central.co.jp/shinkansen/sp/ja/ti04.html?station=2&amp;bound=1" target="_blank" rel="noreferrer">https://traininfo.jr-central.co.jp/shinkansen/sp/ja/ti04.html?station=2&amp;bound=1</a></p>
+<ul><li>JR東海「品川駅 駅の時刻表」</li></ul>
+<p><a href="https://railway.jr-central.co.jp/station-guide/shinkansen/shinagawa/jikoku.html" target="_blank" rel="noreferrer">https://railway.jr-central.co.jp/station-guide/shinkansen/shinagawa/jikoku.html</a></p>
+<ul><li>京浜急行電鉄「品川駅時刻表」</li></ul>
+<p><a href="https://www.keikyu.co.jp/ride/kakueki/pdf/timetable/KK01.pdf" target="_blank" rel="noreferrer">https://www.keikyu.co.jp/ride/kakueki/pdf/timetable/KK01.pdf</a></p>
+<ul><li>京浜急行電鉄「北品川駅時刻表」</li></ul>
+<p><a href="https://www.keikyu.co.jp/ride/kakueki/pdf/timetable/KK02.pdf" target="_blank" rel="noreferrer">https://www.keikyu.co.jp/ride/kakueki/pdf/timetable/KK02.pdf</a></p>
+  </main>
+</body>
+</html>
