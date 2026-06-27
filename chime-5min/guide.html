@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#2A2012">
+  <title>5分チーン通知 説明</title>
+  <style>
+    :root {
+      --scarlet: #8C2E22;
+      --gold: #B8893A;
+      --bright-gold: #D4AF52;
+      --dark-gold: #8A6520;
+      --parchment: #E7D6AB;
+      --parchment-light: #F3E8C9;
+      --ink: #2D2113;
+      --sub-ink: #5B4824;
+      --leather: #2A2012;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      color: var(--ink);
+      font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", system-ui, sans-serif;
+      background: linear-gradient(135deg, rgba(42, 32, 18, 0.96), rgba(92, 61, 27, 0.92));
+    }
+
+    main {
+      width: min(100%, 430px);
+      padding: 22px;
+      border: 6px double transparent;
+      border-radius: 4px;
+      background:
+        linear-gradient(var(--parchment-light), var(--parchment)) padding-box,
+        linear-gradient(135deg, var(--bright-gold), var(--dark-gold), var(--gold)) border-box;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.42);
+    }
+
+    h1 {
+      margin: 0 0 18px;
+      color: var(--scarlet);
+      font-family: "Yu Mincho", "Hiragino Mincho ProN", serif;
+      font-size: 25px;
+      text-align: center;
+    }
+
+    p {
+      margin: 0 0 12px;
+      color: var(--sub-ink);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    a {
+      display: block;
+      margin-top: 18px;
+      padding: 13px;
+      color: #E9DCBD;
+      text-align: center;
+      text-decoration: none;
+      font-weight: 800;
+      background: linear-gradient(180deg, #6E7A46, #5A6B3E);
+      border: 2px solid var(--dark-gold);
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>5分チーン通知 説明</h1>
+    <p>開始中だけ、分の末尾が0または5になった瞬間に約3秒の鐘音と画面エフェクトで知らせます。</p>
+    <p>時刻はiPhone本体の時計を使います。正確に使う場合は、iPhoneの「日付と時刻」を自動設定にしてください。</p>
+    <p>画面ロック中や別アプリ表示中は、Safariの制限で通知が遅れたり止まったりすることがあります。</p>
+    <a href="./index.html">アプリへ戻る</a>
+  </main>
+</body>
+</html>

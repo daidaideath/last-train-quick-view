@@ -1,0 +1,627 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#2A2012">
+  <title>5分チーン通知 強調エフェクト版</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --scarlet: #8C2E22;
+      --gold: #B8893A;
+      --bright-gold: #D4AF52;
+      --dark-gold: #8A6520;
+      --parchment: #E7D6AB;
+      --parchment-light: #F3E8C9;
+      --parchment-dark: #D8C191;
+      --ink: #2D2113;
+      --sub-ink: #5B4824;
+      --pale-ink: #7A623A;
+      --leather: #2A2012;
+      --cream: #E9DCBD;
+      --rule: #B89A5A;
+      --moss: #5A6B3E;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100svh;
+      font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", system-ui, sans-serif;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(243, 232, 201, 0.9), rgba(216, 193, 145, 0.18) 38rem, transparent 48rem),
+        linear-gradient(135deg, rgba(42, 32, 18, 0.96), rgba(92, 61, 27, 0.92)),
+        var(--leather);
+      color: var(--ink);
+      display: grid;
+      place-items: center;
+      padding: max(18px, env(safe-area-inset-top)) 18px max(18px, env(safe-area-inset-bottom));
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(45, 33, 19, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(45, 33, 19, 0.05) 1px, transparent 1px);
+      background-size: 22px 22px;
+      opacity: 0.35;
+    }
+
+    main {
+      width: min(100%, 400px);
+      display: grid;
+      gap: 12px;
+    }
+
+    .app {
+      position: relative;
+      background:
+        linear-gradient(var(--parchment-light), var(--parchment)) padding-box,
+        linear-gradient(135deg, var(--bright-gold), var(--dark-gold), var(--gold)) border-box;
+      border: 6px double transparent;
+      border-radius: 4px;
+      padding: 20px;
+      box-shadow:
+        0 24px 70px rgba(0, 0, 0, 0.42),
+        inset 0 0 28px rgba(138, 101, 32, 0.22);
+    }
+
+    .app::before,
+    .app::after {
+      content: "";
+      position: absolute;
+      width: 34px;
+      height: 34px;
+      pointer-events: none;
+      border-color: var(--dark-gold);
+    }
+
+    .app::before {
+      left: 8px;
+      top: 8px;
+      border-left: 3px solid;
+      border-top: 3px solid;
+    }
+
+    .app::after {
+      right: 8px;
+      bottom: 8px;
+      border-right: 3px solid;
+      border-bottom: 3px solid;
+    }
+
+    .quest-badge {
+      display: grid;
+      gap: 3px;
+      justify-items: center;
+      margin-bottom: 8px;
+      color: var(--scarlet);
+      font-family: "Yu Mincho", "Hiragino Mincho ProN", serif;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-align: center;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-family: "Yu Mincho", "Hiragino Mincho ProN", serif;
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 0;
+      text-align: center;
+      color: var(--ink);
+    }
+
+    h1::after {
+      content: "";
+      display: block;
+      height: 3px;
+      margin: 10px auto 0;
+      width: min(250px, 76%);
+      background: linear-gradient(90deg, transparent, var(--dark-gold), var(--bright-gold), var(--dark-gold), transparent);
+    }
+
+    .clock {
+      margin: 18px 0 14px;
+      text-align: center;
+    }
+
+    .time {
+      font-variant-numeric: tabular-nums;
+      font-size: clamp(52px, 17vw, 70px);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: 0;
+      color: var(--scarlet);
+      text-shadow: 0 2px 0 rgba(255, 255, 255, 0.34);
+    }
+
+    .date {
+      margin-top: 8px;
+      color: var(--pale-ink);
+      font-size: 15px;
+    }
+
+    .progress-panel {
+      margin: 0 0 14px;
+      padding: 12px;
+      background: rgba(216, 193, 145, 0.48);
+      border: 1px solid var(--rule);
+      border-left: 5px solid var(--scarlet);
+      border-radius: 3px;
+      box-shadow: inset 0 0 14px rgba(138, 101, 32, 0.13);
+    }
+
+    .progress-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 9px;
+      color: var(--sub-ink);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .progress-remaining {
+      color: var(--scarlet);
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    .progress-track {
+      position: relative;
+      height: 30px;
+      overflow: hidden;
+      background:
+        repeating-linear-gradient(90deg, transparent 0 calc(20% - 1px), rgba(233, 220, 189, 0.55) calc(20% - 1px) 20%),
+        linear-gradient(180deg, #322414, var(--leather));
+      border: 2px solid var(--dark-gold);
+      border-radius: 3px;
+      box-shadow:
+        inset 0 2px 7px rgba(0, 0, 0, 0.55),
+        0 1px 0 rgba(255, 255, 255, 0.24);
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background:
+        linear-gradient(90deg, var(--scarlet), var(--gold) 72%, var(--bright-gold));
+      box-shadow: 0 0 18px rgba(212, 175, 82, 0.58);
+      transition: width 160ms linear;
+    }
+
+    .progress-foot {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 7px;
+      color: var(--pale-ink);
+      font-size: 11px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .status {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 0 0 16px;
+    }
+
+    .metric {
+      min-width: 0;
+      padding: 13px;
+      background: linear-gradient(180deg, #332615, var(--leather));
+      border: 1px solid var(--dark-gold);
+      border-radius: 3px;
+      box-shadow: inset 0 0 14px rgba(0, 0, 0, 0.28);
+    }
+
+    .label {
+      color: var(--bright-gold);
+      font-size: 12px;
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+
+    .value {
+      font-variant-numeric: tabular-nums;
+      font-weight: 750;
+      font-size: 20px;
+      overflow-wrap: anywhere;
+      color: var(--cream);
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    button {
+      border: 2px solid var(--dark-gold);
+      border-radius: 3px;
+      padding: 16px 14px;
+      color: var(--cream);
+      font-weight: 800;
+      font-size: 17px;
+      cursor: pointer;
+      touch-action: manipulation;
+      box-shadow: 0 4px 0 rgba(45, 33, 19, 0.35);
+    }
+
+    button:disabled {
+      cursor: default;
+      opacity: 0.45;
+    }
+
+    .start {
+      background: linear-gradient(180deg, #6E7A46, var(--moss));
+    }
+
+    .stop {
+      background: linear-gradient(180deg, #A13A2D, var(--scarlet));
+    }
+
+    .notice {
+      min-height: 48px;
+      display: grid;
+      place-items: center;
+      margin-top: 14px;
+      padding: 13px 15px;
+      border-radius: 3px;
+      border-left: 5px solid var(--scarlet);
+      background: rgba(216, 193, 145, 0.54);
+      color: var(--sub-ink);
+      line-height: 1.45;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .notice.running {
+      color: var(--moss);
+      font-weight: 800;
+    }
+
+    .notice.alerted {
+      color: var(--ink);
+      background: linear-gradient(135deg, var(--bright-gold), #F3E8C9);
+      font-weight: 800;
+      border-left-color: var(--gold);
+    }
+
+    .flash {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0;
+      background:
+        radial-gradient(circle at center, rgba(243, 232, 201, 0.98) 0 10%, rgba(212, 175, 82, 0.82) 10% 25%, transparent 43%),
+        radial-gradient(circle at center, transparent 0 46%, rgba(140, 46, 34, 0.62) 72%, rgba(42, 32, 18, 0.58) 100%),
+        repeating-conic-gradient(from 0deg, rgba(212, 175, 82, 0.28) 0deg 8deg, transparent 8deg 18deg);
+      mix-blend-mode: screen;
+      transform: scale(0.7) rotate(0deg);
+      transition: opacity 260ms ease;
+    }
+
+    .flash.on {
+      animation: fullFlash 3000ms ease-out;
+    }
+
+    .ring {
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      width: 36vmin;
+      aspect-ratio: 1;
+      border: 6px double rgba(212, 175, 82, 0.96);
+      border-radius: 999px;
+      translate: -50% -50%;
+      pointer-events: none;
+      opacity: 0;
+      transform: scale(0.4);
+      box-shadow:
+        0 0 30px rgba(212, 175, 82, 0.95),
+        inset 0 0 24px rgba(243, 232, 201, 0.72);
+    }
+
+    .ring.on {
+      animation: ring 3000ms ease-out;
+    }
+
+    @keyframes ring {
+      0% {
+        opacity: 1;
+        transform: scale(0.28);
+      }
+      45% {
+        opacity: 0.88;
+        transform: scale(2.0);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(3.8);
+      }
+    }
+
+    @keyframes fullFlash {
+      0% {
+        opacity: 0;
+        transform: scale(0.72) rotate(0deg);
+      }
+      8% {
+        opacity: 1;
+      }
+      22% {
+        opacity: 0.94;
+        transform: scale(1.02) rotate(3deg);
+      }
+      58% {
+        opacity: 0.72;
+        transform: scale(1.12) rotate(8deg);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(1.22) rotate(14deg);
+      }
+    }
+
+    @media (max-width: 360px) {
+      .status,
+      .buttons {
+        grid-template-columns: 1fr;
+      }
+
+      .app {
+        padding: 16px;
+      }
+
+      .time {
+        font-size: 52px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="flash" id="flash"></div>
+  <div class="ring" id="ring"></div>
+
+  <main>
+    <section class="app" aria-label="5分チーン通知アプリ">
+      <div class="quest-badge">
+        <span>◆ GUILD NOTICE ◆</span>
+        <span>★★★★★</span>
+      </div>
+      <h1>5分チーン通知 3秒版</h1>
+
+      <div class="clock">
+        <div class="time" id="time">--:--:--</div>
+        <div class="date" id="date">--</div>
+      </div>
+
+      <div class="progress-panel" aria-label="5分進捗">
+        <div class="progress-head">
+          <span>5分進捗</span>
+          <span class="progress-remaining" id="progressRemaining">あと --秒</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-foot">
+          <span>0:00</span>
+          <span id="progressPercent">0%</span>
+          <span>5:00</span>
+        </div>
+      </div>
+
+      <div class="status">
+        <div class="metric">
+          <div class="label">受注状態</div>
+          <div class="value" id="state">停止中</div>
+        </div>
+        <div class="metric">
+          <div class="label">次の合図</div>
+          <div class="value" id="next">--:--</div>
+        </div>
+      </div>
+
+      <div class="buttons">
+        <button class="start" id="start" type="button">開始</button>
+        <button class="stop" id="stop" type="button" disabled>終了</button>
+      </div>
+
+      <div class="notice" id="notice">開始を押すと鐘の準備をして待機します。</div>
+    </section>
+  </main>
+
+  <script>
+    const timeEl = document.getElementById("time");
+    const dateEl = document.getElementById("date");
+    const stateEl = document.getElementById("state");
+    const nextEl = document.getElementById("next");
+    const noticeEl = document.getElementById("notice");
+    const startButton = document.getElementById("start");
+    const stopButton = document.getElementById("stop");
+    const flashEl = document.getElementById("flash");
+    const ringEl = document.getElementById("ring");
+    const progressFillEl = document.getElementById("progressFill");
+    const progressRemainingEl = document.getElementById("progressRemaining");
+    const progressPercentEl = document.getElementById("progressPercent");
+
+    let audioContext = null;
+    let running = false;
+    let ticker = null;
+    let lastAlertKey = "";
+
+    const pad = (value) => String(value).padStart(2, "0");
+
+    function formatTime(date) {
+      return `${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
+    }
+
+    function formatDay(date) {
+      const weekdays = ["日", "月", "火", "水", "木", "金", "土"];
+      return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日 (${weekdays[date.getDay()]})`;
+    }
+
+    function getNextAlertDate(now) {
+      const next = new Date(now);
+      next.setMilliseconds(0);
+
+      if (next.getSeconds() > 0 || next.getMinutes() % 5 !== 0) {
+        next.setSeconds(0);
+        next.setMinutes(next.getMinutes() + (5 - (next.getMinutes() % 5 || 5)));
+      }
+
+      if (next <= now) {
+        next.setMinutes(next.getMinutes() + 5);
+      }
+
+      return next;
+    }
+
+    function getFiveMinuteProgress(now) {
+      const elapsedSeconds = (now.getMinutes() % 5) * 60 + now.getSeconds() + now.getMilliseconds() / 1000;
+      const percent = Math.min(100, Math.max(0, (elapsedSeconds / 300) * 100));
+      const remainingSeconds = Math.max(0, Math.ceil(300 - elapsedSeconds));
+      return { percent, remainingSeconds };
+    }
+
+    function updateClock() {
+      const now = new Date();
+      const progress = getFiveMinuteProgress(now);
+      timeEl.textContent = formatTime(now);
+      dateEl.textContent = formatDay(now);
+      nextEl.textContent = formatTime(getNextAlertDate(now)).slice(0, 5);
+      progressFillEl.style.width = `${progress.percent}%`;
+      progressPercentEl.textContent = `${Math.floor(progress.percent)}%`;
+      progressRemainingEl.textContent = `あと ${progress.remainingSeconds}秒`;
+
+      if (!running) {
+        return;
+      }
+
+      const isFiveMinuteMark = now.getMinutes() % 5 === 0;
+      const isBoundaryMoment = now.getSeconds() === 0 || (now.getSeconds() === 1 && now.getMilliseconds() < 250);
+      const alertKey = `${now.getFullYear()}-${now.getMonth()}-${now.getDate()}-${now.getHours()}-${now.getMinutes()}`;
+
+      if (isFiveMinuteMark && isBoundaryMoment && alertKey !== lastAlertKey) {
+        lastAlertKey = alertKey;
+        notify();
+      }
+    }
+
+    function ensureAudio() {
+      if (!audioContext) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        audioContext = new AudioContextClass();
+      }
+
+      if (audioContext.state === "suspended") {
+        return audioContext.resume();
+      }
+
+      return Promise.resolve();
+    }
+
+    function playChime() {
+      if (!audioContext) {
+        return;
+      }
+
+      const now = audioContext.currentTime;
+      const master = audioContext.createGain();
+      master.gain.setValueAtTime(0.0001, now);
+      master.gain.exponentialRampToValueAtTime(0.42, now + 0.02);
+      master.gain.exponentialRampToValueAtTime(0.0001, now + 3.0);
+      master.connect(audioContext.destination);
+
+      [880, 1320].forEach((frequency, index) => {
+        const osc = audioContext.createOscillator();
+        const toneGain = audioContext.createGain();
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(frequency, now + index * 0.055);
+        toneGain.gain.setValueAtTime(index === 0 ? 0.95 : 0.45, now);
+        osc.connect(toneGain);
+        toneGain.connect(master);
+        osc.start(now + index * 0.055);
+        osc.stop(now + 3.05);
+      });
+    }
+
+    function notify() {
+      playChime();
+      noticeEl.textContent = "チーン！ 5分区切りの合図です";
+      noticeEl.className = "notice alerted";
+
+      flashEl.classList.add("on");
+      ringEl.classList.remove("on");
+      void ringEl.offsetWidth;
+      ringEl.classList.add("on");
+
+      window.setTimeout(() => {
+        flashEl.classList.remove("on");
+      }, 3000);
+
+      window.setTimeout(() => {
+        if (running) {
+          noticeEl.textContent = "受注中です。次の0分/5分で知らせます。";
+          noticeEl.className = "notice running";
+        }
+      }, 3200);
+    }
+
+    async function startApp() {
+      try {
+        await ensureAudio();
+        running = true;
+        lastAlertKey = "";
+        stateEl.textContent = "開始中";
+        startButton.disabled = true;
+        stopButton.disabled = false;
+        noticeEl.textContent = "受注中です。次の0分/5分で知らせます。";
+        noticeEl.className = "notice running";
+        updateClock();
+      } catch (error) {
+        noticeEl.textContent = "鐘の準備に失敗しました。Safariで開いて、もう一度開始してください。";
+        noticeEl.className = "notice";
+      }
+    }
+
+    function stopApp() {
+      running = false;
+      stateEl.textContent = "停止中";
+      startButton.disabled = false;
+      stopButton.disabled = true;
+      noticeEl.textContent = "終了しました。開始を押すと再受注します。";
+      noticeEl.className = "notice";
+      flashEl.classList.remove("on");
+      ringEl.classList.remove("on");
+    }
+
+    startButton.addEventListener("click", startApp);
+    stopButton.addEventListener("click", stopApp);
+
+    updateClock();
+    ticker = window.setInterval(updateClock, 100);
+    window.addEventListener("beforeunload", () => {
+      if (ticker) {
+        window.clearInterval(ticker);
+      }
+    });
+  </script>
+</body>
+</html>
