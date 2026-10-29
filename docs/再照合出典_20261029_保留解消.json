@@ -1,0 +1,233 @@
+{
+  "checked": "2026-10-29",
+  "resolved": [
+    "清澄白河駅",
+    "池袋駅"
+  ],
+  "sources": [
+    {
+      "station": "清澄白河駅",
+      "operator": "東京メトロ公式案内先",
+      "day": "平日",
+      "checked": "2026-10-29",
+      "url": "https://transfer.tokyometro.jp/website/stop?operation=024a0122&numbering=Z10&datetime=2026-10-30T00:33:00%2B09:00&lang=ja",
+      "revision": "列車詳細には明記なし。対応するZ10公式印刷用PDFは2026年3月改正（前回確認）",
+      "water_departure": "00:33",
+      "kiyosumi_arrival": "00:36",
+      "water_arrival_in_train_detail": "00:33",
+      "service_datetime": "2026-10-30T00:33:00+09:00",
+      "result": "既存時刻と一致"
+    },
+    {
+      "station": "清澄白河駅",
+      "operator": "東京メトロ公式案内先",
+      "day": "平日",
+      "checked": "2026-10-29",
+      "url": "https://transfer.tokyometro.jp/website/stop?operation=024a011c&numbering=Z10&datetime=2026-10-29T23:49:00%2B09:00&lang=ja",
+      "revision": "列車詳細には明記なし。対応するZ10公式印刷用PDFは2026年3月改正（前回確認）",
+      "water_departure": "23:49",
+      "kiyosumi_arrival": "23:52",
+      "water_arrival_in_train_detail": "23:49",
+      "service_datetime": "2026-10-29T23:49:00+09:00",
+      "result": "既存時刻と一致"
+    },
+    {
+      "station": "清澄白河駅",
+      "operator": "東京メトロ公式案内先",
+      "day": "土曜・休日",
+      "checked": "2026-10-29",
+      "url": "https://transfer.tokyometro.jp/website/stop?operation=024a01f3&numbering=Z10&datetime=2026-11-02T00:14:00%2B09:00&lang=ja",
+      "revision": "列車詳細には明記なし。対応するZ10公式印刷用PDFは2026年3月改正（前回確認）",
+      "water_departure": "00:14",
+      "kiyosumi_arrival": "00:16",
+      "water_arrival_in_train_detail": "00:13",
+      "service_datetime": "2026-11-02T00:14:00+09:00",
+      "result": "既存の到着見込みより1分早い公式到着時刻を確認"
+    },
+    {
+      "station": "清澄白河駅",
+      "operator": "東京メトロ公式案内先",
+      "day": "土曜・休日",
+      "checked": "2026-10-29",
+      "url": "https://transfer.tokyometro.jp/website/stop?operation=024a01e4&numbering=Z10&datetime=2026-11-01T22:17:00%2B09:00&lang=ja",
+      "revision": "列車詳細には明記なし。対応するZ10公式印刷用PDFは2026年3月改正（前回確認）",
+      "water_departure": "22:17",
+      "kiyosumi_arrival": "22:19",
+      "water_arrival_in_train_detail": "22:16",
+      "service_datetime": "2026-11-01T22:17:00+09:00",
+      "result": "既存の到着見込みより1分早い公式到着時刻を確認"
+    },
+    {
+      "station": "池袋駅（北池袋発池袋行）",
+      "operator": "東武公式駅ページが案内するNAVITIME",
+      "day": "土曜",
+      "checked": "2026-10-29",
+      "display_date": "2026年10月31日(土)",
+      "url": "https://www.navitime.co.jp/diagram/timetable?node=00008370&lineId=00000808&updown=0&time=2026-10-31",
+      "revision": "改正日の明記なし",
+      "late_departures": [
+        "23:07",
+        "23:18",
+        "23:28",
+        "23:41",
+        "23:57",
+        "24:09",
+        "24:23",
+        "24:28"
+      ],
+      "result": "最終24:28は既存値と一致。曖昧だった23時台～24時台を全列車の発車時刻で補完"
+    },
+    {
+      "station": "池袋駅（北池袋発池袋行）",
+      "operator": "東武公式駅ページが案内するNAVITIME",
+      "day": "日曜",
+      "checked": "2026-10-29",
+      "display_date": "2026年11月1日(日)",
+      "url": "https://www.navitime.co.jp/diagram/timetable?node=00008370&lineId=00000808&updown=0&time=2026-11-01",
+      "revision": "改正日の明記なし",
+      "late_departures": [
+        "23:07",
+        "23:18",
+        "23:28",
+        "23:41",
+        "23:57",
+        "24:09",
+        "24:23",
+        "24:28"
+      ],
+      "result": "最終24:28は既存値と一致。曖昧だった23時台～24時台を全列車の発車時刻で補完"
+    },
+    {
+      "station": "池袋駅（北池袋発池袋行）",
+      "operator": "東武公式駅ページが案内するNAVITIME",
+      "day": "祝日",
+      "checked": "2026-10-29",
+      "display_date": "2026年11月3日(火)",
+      "url": "https://www.navitime.co.jp/diagram/timetable?node=00008370&lineId=00000808&updown=0&time=2026-11-03",
+      "revision": "改正日の明記なし",
+      "late_departures": [
+        "23:07",
+        "23:18",
+        "23:28",
+        "23:41",
+        "23:57",
+        "24:09",
+        "24:23",
+        "24:28"
+      ],
+      "result": "最終24:28は既存値と一致。曖昧だった23時台～24時台を全列車の発車時刻で補完"
+    }
+  ],
+  "rechecks": {
+    "経堂駅": {
+      "date": "2026-10-29",
+      "full": true,
+      "scope": "全項目"
+    },
+    "桜上水駅": {
+      "date": "2026-10-29",
+      "full": true,
+      "scope": "全項目（上北沢発の平日最終桜上水行を0:36に更新）"
+    },
+    "三鷹駅": {
+      "date": "2026-10-29",
+      "full": true,
+      "scope": "全項目"
+    },
+    "赤羽駅": {
+      "date": "2026-10-29",
+      "full": true,
+      "scope": "全項目"
+    },
+    "大崎駅": {
+      "date": "2026-10-29",
+      "full": true,
+      "scope": "全項目"
+    },
+    "上野駅": {
+      "date": "2026-10-29",
+      "full": true,
+      "scope": "掲載項目（初回のJRに加え、銀座線・日比谷線の平日／土休日を確認）"
+    },
+    "新橋駅": {
+      "date": "2026-10-29",
+      "full": true,
+      "scope": "掲載項目（JR・銀座線・浅草線・ゆりかもめ。銀座線渋谷方面を0:15に修正）"
+    },
+    "清澄白河駅": {
+      "date": "2026-10-29",
+      "full": true,
+      "scope": "掲載項目（半蔵門線・大江戸線。半蔵門線終着は平日0:36／土休日0:16着を公式列車詳細で確認）"
+    },
+    "池袋駅": {
+      "date": "2026-10-29",
+      "full": true,
+      "scope": "掲載項目（JR・西武・東京メトロ・東武。北池袋発池袋行を東武公式案内先で平日・土曜・日曜・祝日確認）"
+    },
+    "品川駅": {
+      "date": "2026-10-29",
+      "full": true,
+      "scope": "掲載項目（初回JR、京急の両方向と北品川発品川行の平日／土休日）"
+    },
+    "北千住駅": {
+      "date": "2026-10-29",
+      "full": true,
+      "scope": "掲載項目（初回JR、千代田線・日比谷線・東武・TXの両曜日）"
+    },
+    "蒲田駅": {
+      "date": "2026-10-29",
+      "full": true,
+      "scope": "掲載項目（初回JR、東急池上線・多摩川線の平日／土曜／日曜祝日）"
+    },
+    "渋谷駅": {
+      "date": "2026-10-29",
+      "full": true,
+      "scope": "掲載項目（初回JR、東急・銀座線・半蔵門線・副都心線・京王井の頭線）"
+    },
+    "秋葉原駅": {
+      "date": "2026-10-29",
+      "full": true,
+      "scope": "掲載項目（初回JR、日比谷線、TX発車最終と新御徒町発秋葉原行）"
+    },
+    "羽田空港駅": {
+      "date": "2026-10-29",
+      "full": true,
+      "scope": "掲載項目（初回東京モノレール、京急第1・第2ターミナル発の平日／土休日）"
+    },
+    "京成高砂駅": {
+      "date": "2026-10-29",
+      "full": true,
+      "scope": "掲載項目（4方向、青砥・京成小岩・柴又発高砂行、新柴又方面の平日／土休日）"
+    },
+    "東京駅": {
+      "date": "2026-10-29",
+      "full": true,
+      "scope": "掲載項目（初回JR、丸ノ内線両方向。公式PDFは2026年9月改正）"
+    },
+    "自由が丘駅": {
+      "date": "2026-10-29",
+      "full": true,
+      "scope": "掲載項目（東横線・大井町線の全方向を平日／土曜／日曜祝日で確認）"
+    },
+    "中目黒駅": {
+      "date": "2026-10-29",
+      "full": true,
+      "scope": "掲載項目（東横線両方向・日比谷線。菊名行の曜日表記を統一）"
+    },
+    "葛西駅": {
+      "date": "2026-10-29",
+      "full": true,
+      "scope": "掲載項目（東西線両方向・行先別最終。平日の西船橋までの最終を0:23と明記）"
+    },
+    "二子玉川駅": {
+      "date": "2026-10-29",
+      "full": true,
+      "scope": "掲載項目（田園都市線・大井町線全方向、二子玉川0:46着を列車詳細で確認）"
+    },
+    "京急蒲田駅": {
+      "date": "2026-10-29",
+      "full": true,
+      "scope": "掲載項目（京急本線両方向・空港線の平日／土休日。行先と種別を具体化）"
+    }
+  }
+}

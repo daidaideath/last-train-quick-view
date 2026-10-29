@@ -106,7 +106,12 @@ for (const [name, rows] of Object.entries(terminusRowIndexes)) {
 
 // ---------- 公開版・詳細ビジュアル版 ----------
 const summaryFields = ['name', 'route', 'date', 'recommended', 'focus', 'last', 'sort', 'file', 'lead', 'events'];
-const publicFiles = fs.readdirSync(root).filter((f) => /^駅別終電クイックビュー_公開版_\d{8}\.html$/.test(f)).sort();
+const publicPattern = /^駅別終電クイックビュー_公開版_\d{8}(?:_[^/\\]+)?\.html$/;
+const publicFiles = [
+  ...fs.readdirSync(root).filter((f) => publicPattern.test(f)),
+  ...(fs.existsSync(path.join(root, 'output')) ? fs.readdirSync(path.join(root, 'output'))
+    .filter((f) => publicPattern.test(f)).map((f) => `output/${f}`) : []),
+].sort();
 const summaryFiles = [...publicFiles, 'index_detail_visual.html'];
 const summaries = {};
 
@@ -122,7 +127,7 @@ for (const file of summaryFiles) {
     if (names.has(s.name)) err(where, '駅名が重複');
     names.add(s.name);
     if (s.date && !/^\d{4}年\d{1,2}月\d{1,2}日$/.test(s.date)) err(where, `date の形式が不正：${s.date}`);
-    if (s.file && !fs.existsSync(path.join(root, s.file))) err(where, `リンク先ファイルがない：${s.file}`);
+    if (s.file && !fs.existsSync(path.join(root, path.dirname(file), s.file))) err(where, `リンク先ファイルがない：${s.file}`);
     if (!Array.isArray(s.events) || !s.events.length) err(where, 'events が空');
     else s.events.forEach((e) => checkTimes(String(e[0]), where));
     checkTimes([s.recommended, s.focus, s.last].join(' '), where);

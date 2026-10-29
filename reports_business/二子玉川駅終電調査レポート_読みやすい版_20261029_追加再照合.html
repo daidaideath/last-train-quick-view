@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>二子玉川駅 終電調査レポート</title>
+  <style>
+    :root {
+      --bg:#eef2f6;
+      --bg-deep:#101827;
+      --paper:#ffffff;
+      --paper-soft:#f8fafc;
+      --text:#172033;
+      --muted:#647084;
+      --line:#d7dee8;
+      --line-strong:#b9c5d4;
+      --accent:#0f766e;
+      --accent-deep:#115e59;
+      --accent-soft:#e6f4f1;
+      --gold:#b7791f;
+      --gold-soft:#fff6df;
+      --blue:#2563eb;
+      --blue-soft:#eaf1ff;
+      --shadow:0 22px 54px rgba(16,24,39,.15);
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0;
+      color:var(--text);
+      background:
+        linear-gradient(180deg,#111827 0,#111827 180px,#eef2f6 180px,#eef2f6 100%);
+      font-family:"Segoe UI","Yu Gothic UI","Yu Gothic",Meiryo,sans-serif;
+      line-height:1.76;
+    }
+    header {
+      color:#dfe7f1;
+      background:transparent;
+    }
+    .bar {
+      width:min(1040px,calc(100% - 32px));
+      margin:0 auto;
+      padding:18px 0;
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      align-items:center;
+      font-size:14px;
+    }
+    .bar a {
+      color:#d7fffb;
+      text-decoration:none;
+      font-weight:800;
+      border-bottom:1px solid rgba(215,255,251,.5);
+    }
+    .bar span { color:#aeb9c8; }
+    main {
+      width:min(1040px,calc(100% - 32px));
+      margin:28px auto 64px;
+      padding:42px 48px 54px;
+      background:var(--paper);
+      border:1px solid rgba(255,255,255,.72);
+      border-radius:16px;
+      box-shadow:var(--shadow);
+    }
+    h1 {
+      margin:0 0 30px;
+      padding-bottom:28px;
+      border-bottom:1px solid var(--line);
+      font-size:clamp(30px,4.4vw,46px);
+      line-height:1.22;
+      letter-spacing:0;
+      color:#101827;
+    }
+    h2 {
+      margin:38px 0 16px;
+      padding-top:20px;
+      border-top:1px solid var(--line);
+      font-size:25px;
+      letter-spacing:0;
+      color:#132033;
+    }
+    h2::before {
+      content:"";
+      display:inline-block;
+      width:6px;
+      height:22px;
+      margin-right:10px;
+      border-radius:99px;
+      background:var(--accent);
+      vertical-align:-4px;
+    }
+    h3 {
+      margin:26px 0 10px;
+      font-size:18px;
+      color:#1c2a3f;
+      letter-spacing:0;
+    }
+    h4 {
+      margin:18px 0 8px;
+      font-size:16px;
+      color:#26344c;
+      letter-spacing:0;
+    }
+    p { margin:10px 0; }
+    ul { margin:10px 0 20px; padding-left:1.35em; }
+    li { margin:6px 0; }
+    .focus-panel {
+      margin:20px 0 28px;
+      padding:20px 22px;
+      border:1px solid #bfd8d4;
+      border-left:6px solid var(--accent);
+      border-radius:14px;
+      background:
+        linear-gradient(135deg,rgba(230,244,241,.95),rgba(255,255,255,.95));
+      box-shadow:0 14px 28px rgba(15,118,110,.10);
+    }
+    .focus-panel h3 {
+      margin-top:0;
+      color:#0f4f49;
+    }
+    .focus-panel ul { margin-bottom:0; }
+    .table-wrap {
+      overflow:auto;
+      margin:16px 0 26px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:#fff;
+      box-shadow:0 8px 20px rgba(16,24,39,.06);
+    }
+    table {
+      width:100%;
+      border-collapse:collapse;
+      min-width:640px;
+      background:#fff;
+      font-size:14px;
+    }
+    th,td {
+      padding:11px 13px;
+      border-bottom:1px solid var(--line);
+      text-align:left;
+      vertical-align:top;
+    }
+    th {
+      color:#0e3136;
+      background:#e8f2f3;
+      font-weight:800;
+      border-bottom:1px solid var(--line-strong);
+    }
+    tr:last-child td { border-bottom:0; }
+    tbody tr.is-weekday td { background:var(--blue-soft); }
+    tbody tr.is-holiday td { background:var(--gold-soft); }
+    tbody tr.is-weekday.is-holiday td {
+      background:linear-gradient(90deg,var(--blue-soft),var(--gold-soft));
+    }
+    .day-badge {
+      display:inline-flex;
+      align-items:center;
+      min-height:20px;
+      padding:1px 8px;
+      border-radius:999px;
+      font-size:.86em;
+      font-weight:800;
+      line-height:1.45;
+      white-space:nowrap;
+    }
+    .day-weekday {
+      color:#174ea6;
+      background:#dbeafe;
+      border:1px solid #bfdbfe;
+    }
+    .day-holiday {
+      color:#8a4b0f;
+      background:#fef3c7;
+      border:1px solid #fde68a;
+    }
+    a {
+      color:var(--accent-deep);
+      overflow-wrap:anywhere;
+      font-weight:700;
+    }
+    @media (max-width:720px) {
+      .bar { align-items:flex-start; flex-direction:column; }
+      main { padding:26px 18px 36px; border-radius:12px; }
+      table { font-size:13px; }
+      h2 { font-size:22px; }
+    }
+    .note-made { margin:-14px 0 24px; padding:12px 16px; border-left:4px solid var(--gold); border-radius:8px; background:var(--gold-soft); color:#5b4310; font-size:14px; }
+  
+@media(max-width:600px){main{margin:8px;padding:18px 12px}table{width:100%;min-width:0;table-layout:fixed}td,th{white-space:normal;overflow-wrap:anywhere;word-break:normal}.table-wrap{overflow-x:visible}a{overflow-wrap:anywhere}}
+</style>
+</head>
+<body>
+  <header>
+    <div class="bar">
+      <a href="../index.html">駅別クイックビューへ戻る</a>
+      <span>終電調査レポート</span>
+    </div>
+  </header>
+  <main>
+<h1>二子玉川駅 終電調査レポート</h1>
+<p class="note-made">初回調査日：2026-06-18。2026年10月29日追加再照合：掲載項目（田園都市線・大井町線全方向、二子玉川0:46着を列車詳細で確認）。未確認の値を推測で追加していません。</p>
+<h2>駅・路線の概要</h2>
+<p>二子玉川駅には、東急田園都市線と東急大井町線が乗り入れる。田園都市線は渋谷・押上方面と長津田・中央林間方面、大井町線は大井町方面と溝の口方面を結ぶ。深夜帯は中央林間、長津田、鷺沼など、行き先ごとに到達できる範囲が変わる。</p><div class="table-wrap"><table><thead><tr><th>路線・方向</th><th>主な方面</th><th>隣駅</th></tr></thead><tbody><tr><td>田園都市線・渋谷方面</td><td>渋谷、半蔵門線、押上方面</td><td>用賀</td></tr><tr><td>田園都市線・中央林間方面</td><td>鷺沼、長津田、中央林間方面</td><td>二子新地</td></tr><tr><td>大井町線・大井町方面</td><td>自由が丘、大岡山、大井町方面</td><td>上野毛</td></tr><tr><td>大井町線・溝の口方面</td><td>二子新地、高津、溝の口方面</td><td>二子新地</td></tr></tbody></table></div>
+<h2>駅を出る最終列車</h2>
+<h3><span class="day weekday">平日</span></h3><div class="table-wrap"><table><thead><tr><th>路線・方向</th><th>駅発</th><th>行き先</th><th>種別・確認内容</th></tr></thead><tbody><tr><td>田園都市線・中央林間方面</td><td>0:09</td><td>中央林間</td><td>各停・中央林間まで行ける最後</td></tr><tr><td>田園都市線・中央林間方面</td><td>0:25</td><td>長津田</td><td>各停・長津田まで行ける最後</td></tr><tr><td>田園都市線・中央林間方面</td><td>0:40</td><td>鷺沼</td><td>各停・この方向の最終</td></tr><tr><td>田園都市線・渋谷方面</td><td>0:13</td><td>渋谷</td><td>各停・この方向の最終</td></tr><tr><td>大井町線・大井町方面</td><td>0:22</td><td>大井町</td><td>各停・この方向の最終</td></tr><tr><td>大井町線・溝の口方面</td><td>0:35</td><td>溝の口</td><td>各停・二子新地、高津通過</td></tr></tbody></table></div><h3><span class="day holiday"><span class="day holiday">土曜</span>・<span class="day holiday">休日</span></span></h3><div class="table-wrap"><table><thead><tr><th>路線・方向</th><th>駅発</th><th>行き先</th><th>種別・確認内容</th></tr></thead><tbody><tr><td>田園都市線・中央林間方面</td><td>0:10</td><td>中央林間</td><td>各停・中央林間まで行ける最後</td></tr><tr><td>田園都市線・中央林間方面</td><td>0:25</td><td>長津田</td><td>各停・長津田まで行ける最後</td></tr><tr><td>田園都市線・中央林間方面</td><td>0:40</td><td>鷺沼</td><td>各停・この方向の最終</td></tr><tr><td>田園都市線・渋谷方面</td><td>0:13</td><td>渋谷</td><td>各停・この方向の最終</td></tr><tr><td>大井町線・大井町方面</td><td>0:22</td><td>大井町</td><td>各停・この方向の最終</td></tr><tr><td>大井町線・溝の口方面</td><td>0:34</td><td>溝の口</td><td>各停・二子新地、高津通過</td></tr></tbody></table></div><h3>行き先別の実質最終</h3><div class="table-wrap"><table><thead><tr><th>方向</th><th>行ける範囲</th><th><span class="day weekday">平日</span></th><th><span class="day holiday"><span class="day holiday">土曜</span>・<span class="day holiday">休日</span></span></th><th>見るポイント</th></tr></thead><tbody><tr><td>田園都市線下り</td><td>中央林間まで</td><td>0:09</td><td>0:10</td><td>曜日で1分異なる</td></tr><tr><td>田園都市線下り</td><td>長津田まで</td><td>0:25</td><td>0:25</td><td>これ以降は鷺沼止まり</td></tr><tr><td>田園都市線下り</td><td>鷺沼まで</td><td>0:40</td><td>0:40</td><td>この方向の最終</td></tr><tr><td>田園都市線上り</td><td>渋谷まで</td><td>0:13</td><td>0:13</td><td>この方向の最終</td></tr><tr><td>大井町線上り</td><td>大井町まで</td><td>0:22</td><td>0:22</td><td>自由が丘・大岡山方面の最後</td></tr><tr><td>大井町線下り</td><td>溝の口まで</td><td>0:35</td><td>0:34</td><td>曜日で1分異なる</td></tr></tbody></table></div>
+<h2>駅に着く最終列車</h2>
+<p>東急公式連携時刻表の列車詳細で、大井町線の最後の二子玉川行を確認した。大井町0:19発、自由が丘0:34着、上野毛0:43着、二子玉川0:46着で運転を終える。<span class="day mixed"><span class="weekday"><span class="day weekday">平日</span></span>・<span class="holiday"><span class="day holiday"><span class="day holiday">土曜</span><span class="day holiday">休日</span></span></span></span>とも、深夜の二子玉川止まりとしてこの列車を観察対象にする。</p><h3>終着到着時刻</h3><div class="table-wrap"><table><thead><tr><th>列車</th><th>自由が丘着</th><th>上野毛着</th><th>二子玉川着</th></tr></thead><tbody><tr><td>大井町線各停・二子玉川行</td><td>0:34</td><td>0:43</td><td>0:46</td></tr></tbody></table></div><p>東急公式連携時刻表の列車詳細で停車時刻を確認した。</p>
+<h2>見るべきポイント</h2>
+<ul><li>調査推奨時間：23:50～0:55ごろ</li><li>特に注目する時間：0:09～0:40ごろ</li><li>田園都市線中央林間方面の最終：0:40 鷺沼行</li><li>大井町線溝の口方面の最終：<span class="day weekday">平日</span>0:35、<span class="day holiday"><span class="day holiday">土曜</span>・<span class="day holiday">休日</span></span>0:34</li><li>中央林間まで行ける最後は<span class="day weekday">平日</span>0:09、<span class="day holiday"><span class="day holiday">土曜</span>・<span class="day holiday">休日</span></span>0:10で異なる。</li><li>田園都市線と大井町線の乗り換え可否を、行き先別に確認する。</li></ul><h3>現地で確認したいこと</h3><p>二子玉川駅で終電を逃した利用客と、中央林間・長津田・大井町など目的地まで届く列車を逃した利用客が、駅外や別路線へどのように移動するかを把握する。</p>
+<h2>現地チェックリスト</h2>
+<ul><li>田園都市線と大井町線の乗り換えに間に合わなかった人</li><li>中央林間行、長津田行、鷺沼行の違いを発車案内で確認する人</li><li>ライズ側、高島屋側、バス・タクシー乗り場への流出</li><li>二子新地、高津に停車する列車と通過する列車の違い</li><li>駅前で電話、経路検索、宿泊先検索をする人</li><li><span class="day weekday">平日</span>と<span class="day holiday"><span class="day holiday">土曜</span>・<span class="day holiday">休日</span></span>の違い</li></ul><ul><li>遅延、運休、臨時列車の有無</li></ul>
+<h2>注意事項</h2>
+<h3>基礎情報</h3><ul><li>対象駅：東急電鉄 二子玉川駅</li><li>時刻表：東急公式サイトから案内される連携時刻表で確認</li></ul><p><strong>2026年10月29日追加再照合：</strong>東急公式連携画面は2026年10月29日現在。改正日の明記なし。二子玉川行の列車詳細で大井町0:19発・二子玉川0:46着を3曜日で確認。</p>
+<h2>ソース</h2>
+<ul><li>東急電鉄「二子玉川駅」</li></ul><p><a href="https://www.tokyu.co.jp/area/futako-tamagawa/station/" target="_blank" rel="noreferrer">https://www.tokyu.co.jp/area/futako-tamagawa/station/</a></p><ul><li>東急公式連携時刻表「二子玉川駅 田園都市線 中央林間方面」</li></ul><p><a href="https://transfer.navitime.biz/tokyu/pc/diagram/TrainDiagram?stCd=00007197&amp;rrCd=00000789&amp;updown=1" target="_blank" rel="noreferrer">https://transfer.navitime.biz/tokyu/pc/diagram/TrainDiagram?stCd=00007197&amp;rrCd=00000789&amp;updown=1</a></p><ul><li>東急公式連携時刻表「二子玉川駅 田園都市線 渋谷方面」</li></ul><p><a href="https://transfer.navitime.biz/tokyu/pc/diagram/TrainDiagram?stCd=00007197&amp;rrCd=00000789&amp;updown=0" target="_blank" rel="noreferrer">https://transfer.navitime.biz/tokyu/pc/diagram/TrainDiagram?stCd=00007197&amp;rrCd=00000789&amp;updown=0</a></p><ul><li>東急公式連携時刻表「二子玉川駅 大井町線 溝の口方面」</li></ul><p><a href="https://transfer.navitime.biz/tokyu/pc/diagram/TrainDiagram?stCd=00007197&amp;rrCd=00000787&amp;updown=1" target="_blank" rel="noreferrer">https://transfer.navitime.biz/tokyu/pc/diagram/TrainDiagram?stCd=00007197&amp;rrCd=00000787&amp;updown=1</a></p><ul><li>東急公式連携時刻表「二子玉川駅 大井町線 大井町方面」</li></ul><p><a href="https://transfer.navitime.biz/tokyu/pc/diagram/TrainDiagram?stCd=00007197&amp;rrCd=00000787&amp;updown=0" target="_blank" rel="noreferrer">https://transfer.navitime.biz/tokyu/pc/diagram/TrainDiagram?stCd=00007197&amp;rrCd=00000787&amp;updown=0</a></p><h3>2026年10月29日追加再照合の出典</h3><ul><li><a href="https://transfer.navitime.biz/tokyu/pc/diagram/TrainDiagram?stCd=00007197&amp;rrCd=00000789&amp;updown=1" target="_blank" rel="noreferrer">https://transfer.navitime.biz/tokyu/pc/diagram/TrainDiagram?stCd=00007197&amp;rrCd=00000789&amp;updown=1</a></li><li><a href="https://transfer.navitime.biz/tokyu/pc/diagram/TrainDiagram?stCd=00007197&amp;rrCd=00000789&amp;updown=0" target="_blank" rel="noreferrer">https://transfer.navitime.biz/tokyu/pc/diagram/TrainDiagram?stCd=00007197&amp;rrCd=00000789&amp;updown=0</a></li><li><a href="https://transfer.navitime.biz/tokyu/pc/diagram/TrainDiagram?stCd=00007197&amp;rrCd=00000787&amp;updown=1" target="_blank" rel="noreferrer">https://transfer.navitime.biz/tokyu/pc/diagram/TrainDiagram?stCd=00007197&amp;rrCd=00000787&amp;updown=1</a></li><li><a href="https://transfer.navitime.biz/tokyu/pc/diagram/TrainDiagram?stCd=00007197&amp;rrCd=00000787&amp;updown=0" target="_blank" rel="noreferrer">https://transfer.navitime.biz/tokyu/pc/diagram/TrainDiagram?stCd=00007197&amp;rrCd=00000787&amp;updown=0</a></li><li><a href="https://transfer.navitime.biz/tokyu/pc/diagram/TrainRouteTimetable?trCd=81a90390&amp;posType=1&amp;stCd=00003330&amp;rrCd=00000787&amp;year=2026&amp;month=10&amp;day=30&amp;hour=00&amp;minutes=37&amp;updown=1&amp;kind=%E6%9D%B1%E6%80%A5%E5%A4%A7%E4%BA%95%E7%94%BA%E7%B7%9A%E5%90%84%E5%81%9C%EF%BC%88%E4%BA%8C%E5%AD%90%E6%96%B0%E5%9C%B0%E3%83%BB%E9%AB%98%E6%B4%A5%E9%80%9A%E9%81%8E%EF%BC%89" target="_blank" rel="noreferrer">https://transfer.navitime.biz/tokyu/pc/diagram/TrainRouteTimetable?trCd=81a90390&amp;posType=1&amp;stCd=00003330&amp;rrCd=00000787&amp;year=2026&amp;month=10&amp;day=30&amp;hour=00&amp;minutes=37&amp;updown=1&amp;kind=%E6%9D%B1%E6%80%A5%E5%A4%A7%E4%BA%95%E7%94%BA%E7%B7%9A%E5%90%84%E5%81%9C%EF%BC%88%E4%BA%8C%E5%AD%90%E6%96%B0%E5%9C%B0%E3%83%BB%E9%AB%98%E6%B4%A5%E9%80%9A%E9%81%8E%EF%BC%89</a></li><li><a href="https://transfer.navitime.biz/tokyu/pc/diagram/TrainRouteTimetable?trCd=81a90438&amp;posType=1&amp;stCd=00003330&amp;rrCd=00000787&amp;year=2026&amp;month=11&amp;day=01&amp;hour=00&amp;minutes=37&amp;updown=1&amp;kind=%E6%9D%B1%E6%80%A5%E5%A4%A7%E4%BA%95%E7%94%BA%E7%B7%9A%E5%90%84%E5%81%9C%EF%BC%88%E4%BA%8C%E5%AD%90%E6%96%B0%E5%9C%B0%E3%83%BB%E9%AB%98%E6%B4%A5%E9%80%9A%E9%81%8E%EF%BC%89" target="_blank" rel="noreferrer">https://transfer.navitime.biz/tokyu/pc/diagram/TrainRouteTimetable?trCd=81a90438&amp;posType=1&amp;stCd=00003330&amp;rrCd=00000787&amp;year=2026&amp;month=11&amp;day=01&amp;hour=00&amp;minutes=37&amp;updown=1&amp;kind=%E6%9D%B1%E6%80%A5%E5%A4%A7%E4%BA%95%E7%94%BA%E7%B7%9A%E5%90%84%E5%81%9C%EF%BC%88%E4%BA%8C%E5%AD%90%E6%96%B0%E5%9C%B0%E3%83%BB%E9%AB%98%E6%B4%A5%E9%80%9A%E9%81%8E%EF%BC%89</a></li><li><a href="https://transfer.navitime.biz/tokyu/pc/diagram/TrainRouteTimetable?trCd=81a90438&amp;posType=1&amp;stCd=00003330&amp;rrCd=00000787&amp;year=2026&amp;month=11&amp;day=02&amp;hour=00&amp;minutes=37&amp;updown=1&amp;kind=%E6%9D%B1%E6%80%A5%E5%A4%A7%E4%BA%95%E7%94%BA%E7%B7%9A%E5%90%84%E5%81%9C%EF%BC%88%E4%BA%8C%E5%AD%90%E6%96%B0%E5%9C%B0%E3%83%BB%E9%AB%98%E6%B4%A5%E9%80%9A%E9%81%8E%EF%BC%89" target="_blank" rel="noreferrer">https://transfer.navitime.biz/tokyu/pc/diagram/TrainRouteTimetable?trCd=81a90438&amp;posType=1&amp;stCd=00003330&amp;rrCd=00000787&amp;year=2026&amp;month=11&amp;day=02&amp;hour=00&amp;minutes=37&amp;updown=1&amp;kind=%E6%9D%B1%E6%80%A5%E5%A4%A7%E4%BA%95%E7%94%BA%E7%B7%9A%E5%90%84%E5%81%9C%EF%BC%88%E4%BA%8C%E5%AD%90%E6%96%B0%E5%9C%B0%E3%83%BB%E9%AB%98%E6%B4%A5%E9%80%9A%E9%81%8E%EF%BC%89</a></li></ul>
+
+  </main>
+</body>
+</html>
